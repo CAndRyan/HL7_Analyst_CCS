@@ -50,40 +50,6 @@
             </summary>
             <param name="OptionsFile">The options file to delete</param>
         </member>
-        <member name="T:HL7_Analyst.EditItem">
-            <summary>
-            EditItem Class: Used to store a new EditItem for use in message editing.
-            </summary>
-        </member>
-        <member name="P:HL7_Analyst.EditItem.ComponentID">
-            <summary>
-            The ComponentID of the Component
-            </summary>
-        </member>
-        <member name="P:HL7_Analyst.EditItem.NewValue">
-            <summary>
-            The NewValue of the Component
-            </summary>
-        </member>
-        <member name="P:HL7_Analyst.EditItem.OldValue">
-            <summary>
-            The OldValue of the Component
-            </summary>
-        </member>
-        <member name="M:HL7_Analyst.EditItem.#ctor(System.String)">
-            <summary>
-            Constructor that sets the ComponentID
-            </summary>
-            <param name="_CID">ComponentID to set for this EditItem</param>
-        </member>
-        <member name="M:HL7_Analyst.EditItem.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Constructur that sets the ComponentID, OldValue, and the NewValue
-            </summary>
-            <param name="_CID">ComponentID to set for this EditItem</param>
-            <param name="_OldValue">OldValue to set for this EditItem</param>
-            <param name="_NewValue">NewValue to set for this EditItem</param>
-        </member>
         <member name="T:HL7_Analyst.FilledFields">
             <summary>
             FilledFields class: Used to store calculated information about each non-empty field or component in a message
@@ -531,6 +497,11 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
+        </member>
+        <member name="M:HL7_Analyst.frmErrorReport.Report">
+            <summary>
+            Report the provided error
+            </summary>
         </member>
         <member name="F:HL7_Analyst.frmErrorReport.components">
             <summary>
@@ -1352,7 +1323,7 @@
             Opens the Edit Field Form and then edits the message(s)
             </summary>
         </member>
-        <member name="M:HL7_Analyst.frmMain.EditValues(System.String,System.Collections.Generic.List{HL7_Analyst.EditItem})">
+        <member name="M:HL7_Analyst.frmMain.EditValues(System.String,System.Collections.Generic.List{HL7Lib.Base.EditItem})">
             <summary>
             Edits the message string
             </summary>
@@ -2139,6 +2110,26 @@
         <member name="P:HL7_Analyst.Log.Error">
             <summary>
             The exception that is being logged
+            </summary>
+        </member>
+        <member name="F:HL7_Analyst.Log._Instance">
+            <summary>
+            The internal Instance of this singleton
+            </summary>
+        </member>
+        <member name="F:HL7_Analyst.Log.syncRoot">
+            <summary>
+            Serves as the locking object
+            </summary>
+        </member>
+        <member name="P:HL7_Analyst.Log.Instance">
+            <summary>
+            Singleton-style construction/access parameter
+            </summary>
+        </member>
+        <member name="M:HL7_Analyst.Log.#ctor">
+            <summary>
+            Private constructor to force constuction and access through the Instance property
             </summary>
         </member>
         <member name="M:HL7_Analyst.Log.LogException(System.Exception)">

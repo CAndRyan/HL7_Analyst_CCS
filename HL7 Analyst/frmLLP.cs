@@ -51,7 +51,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -68,7 +68,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -94,7 +94,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
     }

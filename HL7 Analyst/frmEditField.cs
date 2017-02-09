@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HL7Lib.Base;
 
 namespace HL7_Analyst
 {
@@ -64,7 +65,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -90,7 +91,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -113,7 +114,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
     }

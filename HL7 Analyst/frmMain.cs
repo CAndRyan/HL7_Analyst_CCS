@@ -82,7 +82,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -102,7 +102,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -123,7 +123,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -144,7 +144,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -165,7 +165,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -186,7 +186,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -207,7 +207,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -228,7 +228,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -249,7 +249,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -270,7 +270,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -290,7 +290,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         #endregion
@@ -345,7 +345,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -368,7 +368,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -390,7 +390,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -413,7 +413,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -439,7 +439,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -564,7 +564,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -589,7 +589,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -661,7 +661,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -715,7 +715,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -742,7 +742,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -805,7 +805,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -832,7 +832,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -874,7 +874,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -921,7 +921,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -942,7 +942,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -974,7 +974,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1004,7 +1004,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1028,7 +1028,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1050,7 +1050,7 @@ namespace HL7_Analyst
             catch (IOException) { }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1069,7 +1069,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1101,7 +1101,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1122,7 +1122,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1154,7 +1154,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1265,7 +1265,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1295,7 +1295,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1353,7 +1353,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1376,7 +1376,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1398,7 +1398,7 @@ namespace HL7_Analyst
             catch (IOException) { }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1451,7 +1451,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1471,7 +1471,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1491,7 +1491,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1513,7 +1513,7 @@ namespace HL7_Analyst
             catch (IOException) { }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1540,7 +1540,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1558,7 +1558,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1599,7 +1599,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
             finally
             {
@@ -1640,7 +1640,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1685,15 +1685,15 @@ namespace HL7_Analyst
             }
             catch (OutOfMemoryException oome)
             {
-                Log.LogException(oome).ShowDialog();
+                Log.Instance.LogException(oome).Report();
             }
             catch (FileNotFoundException fnfe)
             {
-                Log.LogException(fnfe).ShowDialog();
+                Log.Instance.LogException(fnfe).Report();
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1718,15 +1718,15 @@ namespace HL7_Analyst
             }
             catch (OutOfMemoryException oome)
             {
-                Log.LogException(oome).ShowDialog();
+                Log.Instance.LogException(oome).Report();
             }
             catch (FileNotFoundException fnfe)
             {
-                Log.LogException(fnfe).ShowDialog();
+                Log.Instance.LogException(fnfe).Report();
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1764,11 +1764,11 @@ namespace HL7_Analyst
             }
             catch (ArgumentOutOfRangeException aore)
             {
-                Log.LogException(aore).ShowDialog();
+                Log.Instance.LogException(aore).Report();
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1805,7 +1805,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1828,7 +1828,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1851,7 +1851,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1869,7 +1869,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1887,7 +1887,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1905,7 +1905,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1923,7 +1923,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -1992,7 +1992,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2010,7 +2010,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2046,11 +2046,11 @@ namespace HL7_Analyst
             }
             catch (DirectoryNotFoundException dnfe)
             {
-                Log.LogException(dnfe).ShowDialog();
+                Log.Instance.LogException(dnfe).Report();
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2072,7 +2072,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2091,7 +2091,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2110,7 +2110,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2129,7 +2129,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2145,33 +2145,34 @@ namespace HL7_Analyst
                     List<string> Msgs = new List<string>();
                     foreach (string msg in Messages)
                     {
-                        HL7Lib.Base.Message m = new HL7Lib.Base.Message(msg);
-                        List<Segment> segments = m.Segments.Get("PID");
-                        if (segments.Count == 1)
-                        {
-                            Segment s = segments[0];
+                        //HL7Lib.Base.Message m = new HL7Lib.Base.Message(msg);
+                        //List<Segment> segments = m.Segments.Get("PID");
+                        //if (segments.Count == 1)
+                        //{
+                        //    Segment s = segments[0];
 
-                            HL7Lib.Base.Component last = s.GetByID("PID-5.1");
-                            HL7Lib.Base.Component first = s.GetByID("PID-5.2");
-                            HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
-                            HL7Lib.Base.Component address = s.GetByID("PID-11.1");
-                            HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
-                            HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
+                        //    HL7Lib.Base.Component last = s.GetByID("PID-5.1");
+                        //    HL7Lib.Base.Component first = s.GetByID("PID-5.2");
+                        //    HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
+                        //    HL7Lib.Base.Component address = s.GetByID("PID-11.1");
+                        //    HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
+                        //    HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
 
-                            List<EditItem> items = new List<EditItem>();
-                            if (!String.IsNullOrEmpty(last.Value))
-                                items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
-                            if (!String.IsNullOrEmpty(first.Value))
-                                items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
-                            if (!String.IsNullOrEmpty(address.Value))
-                                items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
-                            if (!String.IsNullOrEmpty(mrn.Value))
-                                items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
-                            if (!String.IsNullOrEmpty(ssn.Value))
-                                items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
+                        //    List<EditItem> items = new List<EditItem>();
+                        //    if (!String.IsNullOrEmpty(last.Value))
+                        //        items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
+                        //    if (!String.IsNullOrEmpty(first.Value))
+                        //        items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
+                        //    if (!String.IsNullOrEmpty(address.Value))
+                        //        items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
+                        //    if (!String.IsNullOrEmpty(mrn.Value))
+                        //        items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
+                        //    if (!String.IsNullOrEmpty(ssn.Value))
+                        //        items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
 
-                            Msgs.Add(EditValues(msg, items));
-                        }
+                        //    Msgs.Add(EditValues(msg, items));
+                        //}
+                        Msgs.Add((new HL7Lib.Base.Message(msg)).DeIdentify(Log.Instance).InputString);
                     }
                     Messages = Msgs;
                     SetMessageDisplay(currentMessage);
@@ -2180,7 +2181,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2230,7 +2231,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2241,29 +2242,36 @@ namespace HL7_Analyst
         /// <returns>The message string after editing</returns>
         private string EditValues(string msg, List<EditItem> items)
         {
-            try
-            {
-                List<EditItem> finalList = new List<EditItem>();
-                string returnMsg = msg;
-                HL7Lib.Base.Message m = new HL7Lib.Base.Message(msg);
-                foreach (EditItem item in items)
-                {
-                    List<HL7Lib.Base.Component> com = m.GetByID(item.ComponentID);
-                    foreach (HL7Lib.Base.Component c in com)
-                    {
-                        finalList.Add(new EditItem(c.ID, c.Value, item.NewValue));
-                    }
-                }
-                foreach (EditItem i in finalList)
-                {
-                    if (!String.IsNullOrEmpty(i.OldValue))
-                        returnMsg = returnMsg.Replace(i.OldValue, i.NewValue);
-                }
-                return returnMsg;
+            //try
+            //{
+            //    List<EditItem> finalList = new List<EditItem>();
+            //    string returnMsg = msg;
+            //    HL7Lib.Base.Message m = new HL7Lib.Base.Message(msg);
+            //    foreach (EditItem item in items)
+            //    {
+            //        List<HL7Lib.Base.Component> com = m.GetByID(item.ComponentID);
+            //        foreach (HL7Lib.Base.Component c in com)
+            //        {
+            //            finalList.Add(new EditItem(c.ID, c.Value, item.NewValue));
+            //        }
+            //    }
+            //    foreach (EditItem i in finalList)
+            //    {
+            //        if (!String.IsNullOrEmpty(i.OldValue))
+            //            returnMsg = returnMsg.Replace(i.OldValue, i.NewValue);
+            //    }
+            //    return returnMsg;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Instance.LogException(ex).Report();
+            //    return "";
+            //}
+            HL7Lib.Base.Message retMsg = new HL7Lib.Base.Message(msg).EditValues(items, Log.Instance);
+            if (retMsg != null) {
+                return retMsg.InputString;
             }
-            catch (Exception ex)
-            {
-                Log.LogException(ex).ShowDialog();
+            else {
                 return "";
             }
         }
@@ -2282,7 +2290,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -2385,7 +2393,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         #endregion        

@@ -67,6 +67,40 @@
             The ComponentIndex of the Component ID string
             </summary>
         </member>
+        <member name="T:HL7Lib.Base.EditItem">
+            <summary>
+            EditItem Class: Used to store a new EditItem for use in message editing.
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditItem.ComponentID">
+            <summary>
+            The ComponentID of the Component
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditItem.NewValue">
+            <summary>
+            The NewValue of the Component
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditItem.OldValue">
+            <summary>
+            The OldValue of the Component
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.EditItem.#ctor(System.String)">
+            <summary>
+            Constructor that sets the ComponentID
+            </summary>
+            <param name="_CID">ComponentID to set for this EditItem</param>
+        </member>
+        <member name="M:HL7Lib.Base.EditItem.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructur that sets the ComponentID, OldValue, and the NewValue
+            </summary>
+            <param name="_CID">ComponentID to set for this EditItem</param>
+            <param name="_OldValue">OldValue to set for this EditItem</param>
+            <param name="_NewValue">NewValue to set for this EditItem</param>
+        </member>
         <member name="T:HL7Lib.Base.Field">
             <summary>
             Field Class: Constructs an HL7 Field Object
@@ -151,6 +185,74 @@
             <param name="AckMessage">The ack to use</param>
             <returns></returns>
         </member>
+        <member name="T:HL7Lib.Base.IErrorReport">
+            <summary>
+            IErrorReport interface: To provide a return object from logging exceptions
+            </summary>
+        </member>
+        <member name="T:HL7Lib.Base.ILogWriter">
+            <summary>
+            ILogWriter interface: To faciliate the use of error and warning logs
+            </summary>
+        </member>
+        <member name="T:HL7Lib.Base.LogWriter">
+            <summary>
+            LogWriter Class: A default log writer
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.LogWriter.Error">
+            <summary>
+            The exception that is being logged
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.LogWriter._Instance">
+            <summary>
+            The internal Instance of this singleton
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.LogWriter.syncRoot">
+            <summary>
+            Serves as the locking object
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.LogWriter.Instance">
+            <summary>
+            Singleton-style construction/access parameter
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.LogWriter.#ctor">
+            <summary>
+            Private constructor to force constuction and access through the Instance property
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.LogWriter.LogException(System.Exception)">
+            <summary>
+            Logs the specified exception to a log file on disk and returns an Error Report containing the error message
+            </summary>
+            <param name="err">Exception being logged</param>
+            <returns>Returns an Error Report</returns>
+        </member>
+        <member name="T:HL7Lib.Base.ErrorReport">
+            <summary>
+            ErrorReport Class: A default error report
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ErrorReport.Error">
+            <summary>
+            The exception that is being reported
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.ErrorReport.#ctor(System.Exception)">
+            <summary>
+            Initialization Method: Sets the text displays to the values of the error message.
+            </summary>
+            <param name="err">Error that was thrown.</param>
+        </member>
+        <member name="M:HL7Lib.Base.ErrorReport.Report">
+            <summary>
+            Report the provided error
+            </summary>
+        </member>
         <member name="T:HL7Lib.Base.Message">
             <summary>
             Message Class: Constructs an HL7 message object from a string
@@ -189,6 +291,11 @@
         <member name="P:HL7Lib.Base.Message.SegmentNames">
             <summary>
             List of Segment names in HL7 message
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.Message.InputString">
+            <summary>
+            The original HL7 message string
             </summary>
         </member>
         <member name="P:HL7Lib.Base.Message.DisplayString">
@@ -348,12 +455,35 @@
             <param name="ValueString">The value of the component to search for</param>
             <returns>The component returned</returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.DeIdentify(HL7Lib.Base.Message)">
+        <member name="M:HL7Lib.Base.Extensions.DeIdentify(HL7Lib.Base.Message,HL7Lib.Base.ILogWriter)">
             <summary>
             Removes patient identifying information from message and replaces it with made up patient data.
             </summary>
             <param name="m">The message to de-identify.</param>
             <returns>Returns the original message without identifying information.</returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.DeIdentify(HL7Lib.Base.Message)">
+            <summary>
+            Removes patient identifying information from message and replaces it with made up patient data, providing a default ILogWriter
+            </summary>
+            <param name="m">The message to de-identify.</param>
+            <returns>Returns the original message without identifying information.</returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.EditValues(HL7Lib.Base.Message,System.Collections.Generic.List{HL7Lib.Base.EditItem},HL7Lib.Base.ILogWriter)">
+            <summary>
+            Edits the message string
+            </summary>
+            <param name="m">The message to edit</param>
+            <param name="items">The items to edit in the message</param>
+            <returns>The new message after editing</returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.EditValues(HL7Lib.Base.Message,System.Collections.Generic.List{HL7Lib.Base.EditItem})">
+            <summary>
+            Edits the message string, providing a default ILogWriter for exception handling
+            </summary>
+            <param name="m">The message to edit</param>
+            <param name="items">The items to edit in the message</param>
+            <returns>The new message after editing</returns>
         </member>
         <member name="M:HL7Lib.Base.Extensions.ToHL7Date(System.DateTime)">
             <summary>

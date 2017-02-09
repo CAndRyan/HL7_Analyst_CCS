@@ -13,13 +13,13 @@ This is my update to the [HL7 Analyst](https://hl7analyst.codeplex.com/) softwar
 * **Warning**: *"Missing XML comment for publicly visible type or member"*
     * Occurs within **HL7Lib** project -> */Segment.cs* file and the files within the *Segments* directory
 	* Is a benign warning but can be disabled:
-		* Right-click the HL7Lib project and open properties
+		* Right-click the **HL7Lib** project and open properties
 		* Within the **Build** tab, uncheck the ***XML documentation file*** box
 	* Sections can also be ignored by encasing them with the following:
 		* **before:** `#pragma warning disable 1591`
 		* **after:** `#pragma warning restore 1591`
 	* This type of warning can also be ignored globally (***preferred method***):
-		* Right-click the HL7Lib project and open properties
+		* Right-click the **HL7Lib** project and open properties
 		* Within the **Build** tab, change the ***Warning level*** from **4** to **3** ([MSDN](https://msdn.microsoft.com/en-us/library/thxezb7y.aspx))
 * **HL7 Analyst** project was not set to build within the solution
 	* Right-click solution and open properties
@@ -27,7 +27,7 @@ This is my update to the [HL7 Analyst](https://hl7analyst.codeplex.com/) softwar
 * **Error:** *"Unable to find manifest signing certificate in the certificate store"*
 * **Warning:** *"Unable to find code signing certificate in the current user's Windows certificate store. To correct this, either disable signing of the ClickOnce manifest or install the certificate into the certificate store."*
 	* This warning is fairly well explained in the message
-	* Right-click the "HL7 Analyst" project and open properties
+	* Right-click the **HL7 Analyst** project and open properties
 	* On the **Signing** tab, uncheck the ***Sign the ClickOnce manifests*** box
 	* This also resolves the related error above
 

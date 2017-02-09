@@ -88,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseOptions.cs" />
-    <Compile Include="EditItem.cs" />
     <Compile Include="FilledFields.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>

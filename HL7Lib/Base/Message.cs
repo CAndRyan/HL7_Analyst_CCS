@@ -78,6 +78,10 @@ namespace HL7Lib.Base
         /// </summary>
         public List<string> SegmentNames { get; set; }
         /// <summary>
+        /// The original HL7 message string
+        /// </summary>
+        public string InputString { get; }
+        /// <summary>
         /// The HL7 message string formatted for display
         /// </summary>
         public string DisplayString { get; set; }
@@ -93,6 +97,7 @@ namespace HL7Lib.Base
         {
             Segments = new List<Segment>();
             SegmentNames = new List<string>();
+            InputString = HL7Message;
             Parse(HL7Message);
         }
         /// <summary>

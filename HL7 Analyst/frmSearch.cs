@@ -72,7 +72,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -93,7 +93,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -117,7 +117,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         #endregion
@@ -146,7 +146,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -233,7 +233,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex);
+                Log.Instance.LogException(ex);
             }
         }
         /// <summary>
@@ -257,7 +257,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -275,7 +275,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         /// <summary>
@@ -312,7 +312,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         private void btnSearchPath_Click(object sender, EventArgs e)
@@ -328,7 +328,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
 
@@ -396,7 +396,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
                 return new List<string>();
             }
         }
@@ -438,7 +438,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
                 return false;
             }
         }
@@ -460,7 +460,7 @@ namespace HL7_Analyst
             }
             catch (Exception ex)
             {
-                Log.LogException(ex).ShowDialog();
+                Log.Instance.LogException(ex).Report();
             }
         }
         #endregion        

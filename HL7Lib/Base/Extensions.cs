@@ -168,38 +168,117 @@ namespace HL7Lib.Base
             }
             return returnValue;
         }
+        ///// <summary>
+        ///// Removes patient identifying information from message and replaces it with made up patient data.
+        ///// </summary>
+        ///// <param name="m">The message to de-identify.</param>
+        ///// <returns>Returns the original message without identifying information.</returns>
+        //public static Message DeIdentify(this Message m)
+        //{
+        //    Message msg = m;
+
+        //    if (msg.Segments.Get("PID") != null)
+        //    {
+        //        string mrn = Helper.RandomMRN();
+        //        string sex = msg.Segments.Get("PID")[0].Fields[8].Components[0].Value;
+
+        //        msg.Segments.Get("PID")[0].Fields[2].Components[0].Value = mrn;
+        //        msg.Segments.Get("PID")[0].Fields[3].Components[0].Value = mrn;
+        //        msg.Segments.Get("PID")[0].Fields[4].Components[0].Value = mrn;
+        //        msg.Segments.Get("PID")[0].Fields[5].Components[0].Value = Helper.RandomLastName();
+        //        msg.Segments.Get("PID")[0].Fields[5].Components[1].Value = Helper.RandomFirstName(sex);
+        //        msg.Segments.Get("PID")[0].Fields[6].Components[0].Value = Helper.RandomLastName();
+        //        msg.Segments.Get("PID")[0].Fields[6].Components[1].Value = Helper.RandomFirstName("FEMALE");
+        //        msg.Segments.Get("PID")[0].Fields[9].Components[0].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[9].Components[1].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[11].Components[0].Value = Helper.RandomAddress();
+        //        msg.Segments.Get("PID")[0].Fields[13].Components[0].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[13].Components[11].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[14].Components[0].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[14].Components[11].Value = "";
+        //        msg.Segments.Get("PID")[0].Fields[18].Components[0].Value = mrn;
+        //        msg.Segments.Get("PID")[0].Fields[19].Components[0].Value = "999999999";
+        //    }
+        //    return msg;
+        //}
         /// <summary>
         /// Removes patient identifying information from message and replaces it with made up patient data.
         /// </summary>
         /// <param name="m">The message to de-identify.</param>
         /// <returns>Returns the original message without identifying information.</returns>
-        public static Message DeIdentify(this Message m)
-        {
-            Message msg = m;
+        public static Message DeIdentify(this Message m, ILogWriter logger) {
+            List<Segment> segments = m.Segments.Get("PID");
+            if (segments.Count == 1) {
+                Segment s = segments[0];
 
-            if (msg.Segments.Get("PID") != null)
-            {
-                string mrn = Helper.RandomMRN();
-                string sex = msg.Segments.Get("PID")[0].Fields[8].Components[0].Value;
+                HL7Lib.Base.Component last = s.GetByID("PID-5.1");
+                HL7Lib.Base.Component first = s.GetByID("PID-5.2");
+                HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
+                HL7Lib.Base.Component address = s.GetByID("PID-11.1");
+                HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
+                HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
 
-                msg.Segments.Get("PID")[0].Fields[2].Components[0].Value = mrn;
-                msg.Segments.Get("PID")[0].Fields[3].Components[0].Value = mrn;
-                msg.Segments.Get("PID")[0].Fields[4].Components[0].Value = mrn;
-                msg.Segments.Get("PID")[0].Fields[5].Components[0].Value = Helper.RandomLastName();
-                msg.Segments.Get("PID")[0].Fields[5].Components[1].Value = Helper.RandomFirstName(sex);
-                msg.Segments.Get("PID")[0].Fields[6].Components[0].Value = Helper.RandomLastName();
-                msg.Segments.Get("PID")[0].Fields[6].Components[1].Value = Helper.RandomFirstName("FEMALE");
-                msg.Segments.Get("PID")[0].Fields[9].Components[0].Value = "";
-                msg.Segments.Get("PID")[0].Fields[9].Components[1].Value = "";
-                msg.Segments.Get("PID")[0].Fields[11].Components[0].Value = Helper.RandomAddress();
-                msg.Segments.Get("PID")[0].Fields[13].Components[0].Value = "";
-                msg.Segments.Get("PID")[0].Fields[13].Components[11].Value = "";
-                msg.Segments.Get("PID")[0].Fields[14].Components[0].Value = "";
-                msg.Segments.Get("PID")[0].Fields[14].Components[11].Value = "";
-                msg.Segments.Get("PID")[0].Fields[18].Components[0].Value = mrn;
-                msg.Segments.Get("PID")[0].Fields[19].Components[0].Value = "999999999";
+                List<EditItem> items = new List<EditItem>();
+                if (!String.IsNullOrEmpty(last.Value))
+                    items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
+                if (!String.IsNullOrEmpty(first.Value))
+                    items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
+                if (!String.IsNullOrEmpty(address.Value))
+                    items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
+                if (!String.IsNullOrEmpty(mrn.Value))
+                    items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
+                if (!String.IsNullOrEmpty(ssn.Value))
+                    items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
+
+                return EditValues(m, items, logger);
             }
-            return msg;
+            else {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Removes patient identifying information from message and replaces it with made up patient data, providing a default ILogWriter
+        /// </summary>
+        /// <param name="m">The message to de-identify.</param>
+        /// <returns>Returns the original message without identifying information.</returns>
+        public static Message DeIdentify(this Message m) {
+            return DeIdentify(m, LogWriter.Instance);
+        }
+        /// <summary>
+        /// Edits the message string
+        /// </summary>
+        /// <param name="m">The message to edit</param>
+        /// <param name="items">The items to edit in the message</param>
+        /// <returns>The new message after editing</returns>
+        public static Message EditValues(this Message m, List<EditItem> items, ILogWriter logger) {
+            try {
+                string returnMsg = m.InputString;
+                List<EditItem> finalList = new List<EditItem>();
+                foreach (EditItem item in items) {
+                    List<HL7Lib.Base.Component> com = m.GetByID(item.ComponentID);
+                    foreach (HL7Lib.Base.Component c in com) {
+                        finalList.Add(new EditItem(c.ID, c.Value, item.NewValue));
+                    }
+                }
+                foreach (EditItem i in finalList) {
+                    if (!String.IsNullOrEmpty(i.OldValue))
+                        returnMsg = returnMsg.Replace(i.OldValue, i.NewValue);
+                }
+                return new Message(returnMsg);
+            }
+            catch (Exception ex) {
+                logger.LogException(ex).Report();
+                return null;
+            }
+        }
+        /// <summary>
+        /// Edits the message string, providing a default ILogWriter for exception handling
+        /// </summary>
+        /// <param name="m">The message to edit</param>
+        /// <param name="items">The items to edit in the message</param>
+        /// <returns>The new message after editing</returns>
+        public static Message EditValues(this Message m, List<EditItem> items) {
+            return EditValues(m, items, LogWriter.Instance);
         }
         /// <summary>
         /// Converts a regular date into an HL7 date string.
