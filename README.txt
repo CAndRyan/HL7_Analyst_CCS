@@ -1,6 +1,7 @@
 ..::: DESCRIPTION ::..
 Cloned via Subversion from source -> https://hl7analyst.codeplex.com/
 Author: Jeremy Reagan
+Last Release: 10/1/2011
 Editor: Chris Ryan
 Date Cloned: 2/8/2017
 
@@ -18,3 +19,31 @@ Sincerely,
 Jeremy Reagan
 
 Last edited Apr 29, 2011 at 1:09 PM by JReagan_1, version 11
+
+..::ENCOUNTERED ISSUES AND ERRORS::..
+>Warning: "Missing XML comment for publicly visible type or member"
+	>Occurs within HL7Lib project, Segment.cs, caused by the files within the Segments directory
+	>Is a benign warning but can be disabled:
+		>Right-click the HL7Lib project and open properties
+		>Within the "Build" tab, uncheck the "XML documentation file" box
+	>Sections can also be ignored by encasing them with the following:
+		>before: #pragma warning disable 1591
+		>after:  #pragma warning restore 1591
+	>This type of warning can also be ignored globally:
+		>Right-click the HL7Lib project and open properties
+		>Within the "Build" tab, change the "Warning level" from 4 to 3 (https://msdn.microsoft.com/en-us/library/thxezb7y.aspx)
+	>[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.??Usage", "CS1591")]
+	>Would be nice to resolve however to self-document the code
+>Warning: "Could not resolve this reference. Could not locate the assembly 'ZedGraph'..."
+	>Is a 3rd party application linked to within frmAbout.cs, pointing to here: https://sourceforge.net/projects/zedgraph/ or from 
+	>Is referenced in a using statement within frmMessageStats.cs which throws the warning
+	>Should be replaced in code with a .NET 4+ charting library but can be used by downloading and referencing this dll for .NET 1.1 or 2.0 https://www.codeproject.com/articles/5431/a-flexible-charting-library-for-net
+>Build process:
+	>"HL7 Analyst" project was not set to build within the solution
+		>Right-click solution and open properties
+		>Under Configuration Properties -> Configuration, check the "Build" box for "HL7 Analyst" (platform is x86)
+	>Error: "Unable to find manifest signing certificate in the certificate store"
+	>Warning: "Unable to find code signing certificate in the current user's Windows certificate store. To correct this, either disable signing of the ClickOnce manifest or install the certificate into the certificate store."
+		>This warning is fairly well explained in the message
+		>Right-click the "HL7 Analyst" project and open properties
+		>On the "Signing" tab, uncheck the "Sign the ClickOnce manifests" box
