@@ -2,7 +2,7 @@
 This is my update to the [HL7 Analyst](https://hl7analyst.codeplex.com/) software originally created by Jeremy Reagan, and released under the [GPL V2 Open Source License](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html). His last release was on 10/1/2011 and this project was initially cloned on 2/8/2017. This project also utilizes the ZedGraph charting library which is released under the [GPL V2.1 License](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html) and available from [CodeProject](https://www.codeproject.com/Articles/5431/A-flexible-charting-library-for-NET) as well as [SourceForge](https://sourceforge.net/projects/zedgraph/).
 
 ## Planned Improvements
-1. Update ***frmMain.DeIdentifyMessages()*** method to utilize the ***HL7Lib.Base.DeIdentify()*** method which is currently not in use but does exist
+1. ~~Update ***frmMain.DeIdentifyMessages()*** method to utilize the ***HL7Lib.Base.DeIdentify()*** method which is currently not in use but does exist~~
 2. Update the ***HL7Lib.Base.DeIdentify()*** method to de-identify messages according to [HIPAA standards](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/#standard)
 3. Update the ***HL7Lib.Base.DeIdentify()*** method to accept customizable randomizations
 4. Update the ***HL7Lib.Base.DeIdentify()*** method to accept external configurations for sensitive fields. Useful if messages are non-standard
