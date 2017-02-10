@@ -49,6 +49,10 @@ namespace HL7Lib.Base {
         /// </summary>
         public string Static { get; set; }
         /// <summary>
+        /// Contains replacement patterns to perform after retrieving the ConfigItem's Message component but before using the ConfigItem
+        /// </summary>
+        public IEnumerable<Replacement> PreReplace { get; set; } = new List<Replacement>();
+        /// <summary>
         /// Get the modified value for the related component
         /// </summary>
         /// <returns></returns>
@@ -63,5 +67,24 @@ namespace HL7Lib.Base {
                 return Configuration.PHI_DEFAULT_VALUE;
             }
         }
+    }
+    /// <summary>
+    /// Replacement class: contains details for replacing string values with another
+    /// </summary>
+    public class Replacement {
+        /// <summary>
+        /// The string to match for replacement
+        /// </summary>
+        public string Match { get; set; }
+        /// <summary>
+        /// The string to replce a match with
+        /// </summary>
+        public string Replace { get; set; }
+        /// <summary>
+        /// A boolean that tells whether or not Match must exactly match the string to replace
+        /// </summary>
+        public bool ExactMatch { get; set; } = true;
+
+        //
     }
 }

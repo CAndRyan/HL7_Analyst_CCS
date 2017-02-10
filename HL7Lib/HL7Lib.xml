@@ -113,11 +113,36 @@
             Static replacement for this component (used if the Generator is null)
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.ConfigItem.PreReplace">
+            <summary>
+            Contains replacement patterns to perform after retrieving the ConfigItem's Message component but before using the ConfigItem
+            </summary>
+        </member>
         <member name="M:HL7Lib.Base.ConfigItem.GetValue">
             <summary>
             Get the modified value for the related component
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:HL7Lib.Base.Replacement">
+            <summary>
+            Replacement class: contains details for replacing string values with another
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.Replacement.Match">
+            <summary>
+            The string to match for replacement
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.Replacement.Replace">
+            <summary>
+            The string to replce a match with
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.Replacement.ExactMatch">
+            <summary>
+            A boolean that tells whether or not Match must exactly match the string to replace
+            </summary>
         </member>
         <member name="T:HL7Lib.Base.EditItem">
             <summary>
@@ -139,6 +164,11 @@
             The OldValue of the Component
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.EditItem.Config">
+            <summary>
+            A ConfigItem property for configuring how to edit the Component
+            </summary>
+        </member>
         <member name="M:HL7Lib.Base.EditItem.#ctor(System.String)">
             <summary>
             Constructor that sets the ComponentID
@@ -152,6 +182,14 @@
             <param name="_CID">ComponentID to set for this EditItem</param>
             <param name="_OldValue">OldValue to set for this EditItem</param>
             <param name="_NewValue">NewValue to set for this EditItem</param>
+        </member>
+        <member name="M:HL7Lib.Base.EditItem.#ctor(System.String,System.String,HL7Lib.Base.ConfigItem)">
+            <summary>
+            Constructor that also sets an optional ConfigItem to assist in editing this Component
+            </summary>
+            <param name="_CID">ComponentID to set for this EditItem</param>
+            <param name="_OldValue">OldValue to set for this EditItem</param>
+            <param name="_Config">ConfigItem to set for this EditItem</param>
         </member>
         <member name="T:HL7Lib.Base.Field">
             <summary>

@@ -215,7 +215,16 @@ namespace HL7Lib.Base
                 foreach (ConfigItem item in Configuration.LoadPHI()) {
                     Component phi = s.GetByID(item.Id);
                     if (!String.IsNullOrEmpty(phi.Value)) {
-                        items.Add(new EditItem(phi.ID, phi.Value, item.GetValue()));
+                        //foreach (Replacement pre in item.PreReplace) {
+                        //    if (pre.ExactMatch && phi.Value.ToLower() == pre.Match) {
+                        //        phi.Value = phi.Value.ToLower();
+                        //        phi.Value = phi.Value.Replace(pre.Match, pre.Replace);
+                        //    }
+                        //    else {  //fixme - update for regex and upper/lower case
+                        //        //
+                        //    }
+                        //}
+                        items.Add(new EditItem(phi.ID, phi.Value, item));
                     }
                 }
 
@@ -265,10 +274,23 @@ namespace HL7Lib.Base
                 foreach (EditItem item in items) {
                     List<HL7Lib.Base.Component> com = m.GetByID(item.ComponentID);
                     foreach (HL7Lib.Base.Component c in com) {
+                        //fixme - commented(2/10/17) since this method will not work without a more complex relacement method
+                        //if (item.Config != null) {    //fixme - consider updating this pre-processing within the new EditItem itself
+                        //    foreach (Replacement pre in item.Config.PreReplace) {
+                        //        if (pre.ExactMatch && c.Value.ToLower() == pre.Match) {
+                        //            c.Value = c.Value.ToLower().Replace(pre.Match, pre.Replace);
+                        //        }
+                        //        else {  //fixme - update for regex and upper/lower case
+                        //            //
+                        //        }
+                        //    }
+                        //}
+                        //fixme - commented(2/10/17) since this method will not work without a more complex relacement method
+
                         finalList.Add(new EditItem(c.ID, c.Value, item.NewValue));
                     }
                 }
-                finalList.Sort((x, y) => x.OldValue.Length.CompareTo(y.OldValue.Length)); //fixme - sort so shortest oldvalue comes first
+                finalList.Sort((x, y) => x.OldValue.Length.CompareTo(y.OldValue.Length)); // Sort so shortest oldvalue comes first - fixme
                 for (int j = 0; j < finalList.Count; j++) {
                     if (!String.IsNullOrEmpty(finalList[j].OldValue)) {
                         returnMsg = returnMsg.Replace(finalList[j].OldValue, finalList[j].NewValue);

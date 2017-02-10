@@ -37,6 +37,10 @@ namespace HL7Lib.Base {
         /// </summary>
         public string OldValue { get; set; }
         /// <summary>
+        /// A ConfigItem property for configuring how to edit the Component
+        /// </summary>
+        public ConfigItem Config { get; set; } = null;
+        /// <summary>
         /// Constructor that sets the ComponentID
         /// </summary>
         /// <param name="_CID">ComponentID to set for this EditItem</param>
@@ -55,6 +59,17 @@ namespace HL7Lib.Base {
             ComponentID = _CID;
             NewValue = _NewValue;
             OldValue = _OldValue;
+        }
+        /// <summary>
+        /// Constructor that also sets an optional ConfigItem to assist in editing this Component
+        /// </summary>
+        /// <param name="_CID">ComponentID to set for this EditItem</param>
+        /// <param name="_OldValue">OldValue to set for this EditItem</param>
+        /// <param name="_Config">ConfigItem to set for this EditItem</param>
+        public EditItem(string _CID, string _OldValue, ConfigItem _Config) {
+            ComponentID = _CID;
+            Config = _Config;
+            NewValue = Config.GetValue();
         }
     }
 }
