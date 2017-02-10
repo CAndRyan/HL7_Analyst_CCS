@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace HL7Lib.Base
 {
@@ -293,11 +294,13 @@ namespace HL7Lib.Base
                 finalList.Sort((x, y) => x.OldValue.Length.CompareTo(y.OldValue.Length)); // Sort so shortest oldvalue comes first - fixme
                 for (int j = 0; j < finalList.Count; j++) {
                     if (!String.IsNullOrEmpty(finalList[j].OldValue)) {
-                        returnMsg = returnMsg.Replace(finalList[j].OldValue, finalList[j].NewValue);
+                        //returnMsg = returnMsg.Replace(finalList[j].OldValue, finalList[j].NewValue);
+                        returnMsg = Regex.Replace(returnMsg, finalList[j].OldValue, finalList[j].NewValue, RegexOptions.IgnoreCase);
 
                         // Update each other EditItem as well - fixme
                         for (int i = (j + 1); i < finalList.Count; i++) {
-                            finalList[i].OldValue = finalList[i].OldValue.Replace(finalList[j].OldValue, finalList[j].NewValue);
+                            //finalList[i].OldValue = finalList[i].OldValue.Replace(finalList[j].OldValue, finalList[j].NewValue);
+                            finalList[i].OldValue = Regex.Replace(finalList[i].OldValue, finalList[j].OldValue, finalList[j].NewValue, RegexOptions.IgnoreCase);
                         }
                     }
                 }
