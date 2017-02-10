@@ -34,6 +34,10 @@
     <DocumentationFile>HL7Lib.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Base\Component.cs" />
     <Compile Include="Base\ComponentID.cs" />
+    <Compile Include="Base\Configuration.cs" />
     <Compile Include="Base\EditItem.cs" />
     <Compile Include="Base\Field.cs" />
     <Compile Include="Base\Helper.cs" />
@@ -216,7 +221,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Boy Names.txt" />
+    <None Include="Resources\PHI_Fields.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Girl Names.txt" />

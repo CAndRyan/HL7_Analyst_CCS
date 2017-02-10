@@ -67,6 +67,58 @@
             The ComponentIndex of the Component ID string
             </summary>
         </member>
+        <member name="T:HL7Lib.Base.Configuration">
+            <summary>
+            Configuration class: loads configuration details
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.Configuration.PHI_FIELDS_PATH">
+            <summary>
+            File name for loading PHI field configurations
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.Configuration.PHI_DEFAULT_VALUE">
+            <summary>
+            Default value to return for a component
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.Configuration.LoadPHI">
+            <summary>
+            Static method to load the PHI field configurations
+            </summary>
+            <returns>A list of config items storing the PHI config data</returns>
+        </member>
+        <member name="T:HL7Lib.Base.ConfigItem">
+            <summary>
+            Config items to store config data for components
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Id">
+            <summary>
+            Id for accessing this component from a Message
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Label">
+            <summary>
+            Label (or name) for this component
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Generator">
+            <summary>
+            Generator to use for modifying this component
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Static">
+            <summary>
+            Static replacement for this component (used if the Generator is null)
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.ConfigItem.GetValue">
+            <summary>
+            Get the modified value for the related component
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:HL7Lib.Base.EditItem">
             <summary>
             EditItem Class: Used to store a new EditItem for use in message editing.

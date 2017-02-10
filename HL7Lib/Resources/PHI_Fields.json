@@ -1,40 +1,38 @@
-﻿{
-	"Components": [
-		{
-			"Label": "LastName",
-			"Id": "PID-5.1",
-			"Generator": null,
-			"Static": "LAST"
-		},
-		{
-			"Label": "FirstName",
-			"Id": "PID-5.2",
-			"Generator": null,
-			"Static": "FIRST"
-		},
-		{
-			"Label": "Sex",
-			"Id": "PID-8.1",
-			"Generator": null,
-			"Static": "GENDER"
-		},
-		{
-			"Label": "Address_Street",
-			"Id": "PID-11.1",
-			"Generator": null,
-			"Static": "STREET"
-		},
-		{
-			"Label": "Mrn",
-			"Id": "PID-18.1",
-			"Generator": null,
-			"Static": "MRN"
-		},
-		{
-			"Label": "Ssn",
-			"Id": "PID-19.1",
-			"Generator": null,
-			"Static": "SSN"
-		},
-	]
-}
+﻿[
+  {
+	  "Label": "LastName",
+	  "Id": "PID-5.1",
+	  "Generator": null,
+	  "Static": "LAST"
+  },
+  {
+	  "Label": "FirstName",
+	  "Id": "PID-5.2",
+	  "Generator": null,
+	  "Static": "FIRST"
+  },
+  {
+	  "Label": "Sex",
+	  "Id": "PID-8.1",
+	  "Generator": null,
+	  "Static": "GENDER"
+  },
+  {
+	  "Label": "Address_Street",
+	  "Id": "PID-11.1",
+	  "Generator": null,
+	  "Static": "STREET"
+  },
+  {
+	  "Label": "Mrn",
+	  "Id": "PID-18.1",
+	  "Generator": null,
+	  "Static": "MRN"
+  },
+  {
+	  "Label": "Ssn",
+	  "Id": "PID-19.1",
+	  "Generator": null,
+	  "Static": "SSN"
+  },
+  ]

@@ -211,24 +211,32 @@ namespace HL7Lib.Base
             if (segments.Count == 1) {
                 Segment s = segments[0];
 
-                HL7Lib.Base.Component last = s.GetByID("PID-5.1");
-                HL7Lib.Base.Component first = s.GetByID("PID-5.2");
-                HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
-                HL7Lib.Base.Component address = s.GetByID("PID-11.1");
-                HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
-                HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
-
                 List<EditItem> items = new List<EditItem>();
-                if (!String.IsNullOrEmpty(last.Value))
-                    items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
-                if (!String.IsNullOrEmpty(first.Value))
-                    items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
-                if (!String.IsNullOrEmpty(address.Value))
-                    items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
-                if (!String.IsNullOrEmpty(mrn.Value))
-                    items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
-                if (!String.IsNullOrEmpty(ssn.Value))
-                    items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
+                foreach (ConfigItem item in Configuration.LoadPHI()) {
+                    Component phi = s.GetByID(item.Id);
+                    if (!String.IsNullOrEmpty(phi.Value)) {
+                        items.Add(new EditItem(phi.ID, phi.Value, item.GetValue()));
+                    }
+                }
+
+                //HL7Lib.Base.Component last = s.GetByID("PID-5.1");
+                //HL7Lib.Base.Component first = s.GetByID("PID-5.2");
+                //HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
+                //HL7Lib.Base.Component address = s.GetByID("PID-11.1");
+                //HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
+                //HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
+
+                //List<EditItem> items = new List<EditItem>();
+                //if (!String.IsNullOrEmpty(last.Value))
+                //    items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
+                //if (!String.IsNullOrEmpty(first.Value))
+                //    items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
+                //if (!String.IsNullOrEmpty(address.Value))
+                //    items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
+                //if (!String.IsNullOrEmpty(mrn.Value))
+                //    items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
+                //if (!String.IsNullOrEmpty(ssn.Value))
+                //    items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
 
                 return EditValues(m, items, logger);
             }
