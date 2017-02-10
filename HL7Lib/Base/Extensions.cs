@@ -268,9 +268,16 @@ namespace HL7Lib.Base
                         finalList.Add(new EditItem(c.ID, c.Value, item.NewValue));
                     }
                 }
-                foreach (EditItem i in finalList) {
-                    if (!String.IsNullOrEmpty(i.OldValue))
-                        returnMsg = returnMsg.Replace(i.OldValue, i.NewValue);
+                finalList.Sort((x, y) => x.OldValue.Length.CompareTo(y.OldValue.Length)); //fixme - sort so shortest oldvalue comes first
+                for (int j = 0; j < finalList.Count; j++) {
+                    if (!String.IsNullOrEmpty(finalList[j].OldValue)) {
+                        returnMsg = returnMsg.Replace(finalList[j].OldValue, finalList[j].NewValue);
+
+                        // Update each other EditItem as well - fixme
+                        for (int i = (j + 1); i < finalList.Count; i++) {
+                            finalList[i].OldValue = finalList[i].OldValue.Replace(finalList[j].OldValue, finalList[j].NewValue);
+                        }
+                    }
                 }
                 return new Message(returnMsg);
             }
