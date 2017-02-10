@@ -41,6 +41,10 @@ namespace HL7Lib.Base {
         /// </summary>
         public string Label { get; set; }
         /// <summary>
+        /// Type of Component
+        /// </summary>
+        public string Type { get; set; }
+        /// <summary>
         /// Generator to use for modifying this component
         /// </summary>
         public string Generator { get; set; }

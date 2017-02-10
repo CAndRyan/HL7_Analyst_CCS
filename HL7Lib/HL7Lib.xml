@@ -103,6 +103,11 @@
             Label (or name) for this component
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Type">
+            <summary>
+            Type of Component
+            </summary>
+        </member>
         <member name="P:HL7Lib.Base.ConfigItem.Generator">
             <summary>
             Generator to use for modifying this component
