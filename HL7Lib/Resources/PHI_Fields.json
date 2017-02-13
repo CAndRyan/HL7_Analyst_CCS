@@ -1,65 +1,100 @@
 ﻿[
     {
-        "Label": "LastName",
+        "Label": "Last_Name",
         "Id": "PID-5.1",
-        "Type": "Name",
+        "Type": "name",
         "Generator": null,
         "Static": "LAST"
     },
     {
-        "Label": "FirstName",
+        "Label": "First_Name",
         "Id": "PID-5.2",
-        "Type": "Name",
+        "Type": "name",
         "Generator": null,
         "Static": "FIRST"
     },
     {
-        "Label": "MiddleName",
+        "Label": "Middle_Name",
         "Id": "PID-5.3",
-        "Type": "Name",
+        "Type": "name",
         "Generator": null,
         "Static": "MIDDLE"
     },
     {
-        "Label": "Address_Street",
+        "Label": "Street_Address",
         "Id": "PID-11.1",
-        "Type": "Address",
+        "Type": "address",
         "Generator": null,
         "Static": "STREET"
     },
     {
-        "Label": "MRN",
+        "Label": "City",
+        "Id": "PID-11.3",
+        "Type": "address",
+        "Generator": null,
+        "Static": "CITY"
+    },
+    {
+        "Label": "Zip_Code",
+        "Id": "PID-11.5",
+        "Type": "address",
+        "Generator": null,
+        "Static": "ZIP"
+    },
+    {
+        "Label": "Patient_Account_Number",
         "Id": "PID-18.1",
-        "Type": "Id",
+        "Type": "id",
+        "Generator": null,
+        "Static": "MRN"
+    },
+    {
+        "Label": "MRN",
+        "Id": "PID-3.1",
+        "Type": "id",
         "Generator": null,
         "Static": "MRN"
     },
     {
         "Label": "SSN",
         "Id": "PID-19.1",
-        "Type": "Id",
+        "Type": "id",
         "Generator": null,
         "Static": "SSN"
     },
     {
         "Label": "MPI",
         "Id": "PID-2.1",
-        "Type": "",
+        "Type": "id",
         "Generator": null,
         "Static": "MPI"
     },
     {
         "Label": "DOB",
         "Id": "PID-7.1",
-        "Type": "DateTime",
+        "Type": "datetime",
         "Generator": null,
         "Static": "DOB"
     },
     {
-        "Label": "",
-        "Id": "",
-        "Type": "",
+        "Label": "Home_Phone",
+        "Id": "PID-13.1",
+        "Type": "phone",
         "Generator": null,
-        "Static": ""
+        "Static": "HOME_PHONE"
+    },
+    {
+        "Label": "Work_Phone",
+        "Id": "PID-14.1",
+        "Type": "phone",
+        "Generator": null,
+        "Static": "WORK_PHONE"
+    },
+    {
+        "Label": "Schedule_Start_Date",
+        "Id": "OBR-27.4",
+        "Type": "datetime",
+        "Generator": null,
+        "Static": "SCHEDULE_START"
     }
 ]

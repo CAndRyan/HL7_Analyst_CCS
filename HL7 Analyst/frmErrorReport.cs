@@ -21,7 +21,7 @@ using HL7Lib.Base;
 namespace HL7_Analyst
 {
     /// <summary>
-    /// Error Report Form: Displays the error that was passed to it and allows user to send error report to hl7analyst@gmail.com
+    /// Error Report Form: Displays the error that was passed to it and allows user to send error reports via email
     /// </summary>
     public partial class frmErrorReport : Form, IErrorReport
     {
@@ -36,13 +36,14 @@ namespace HL7_Analyst
             txtStackTrace.Text = err.StackTrace;
         }
         /// <summary>
-        /// Send Button Click Event: Opens users default mail application and sets a message to to errors values.
+        /// Send Button Click Event: Opens users default mail application and sets a message to errors values.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSend_Click(object sender, EventArgs e)
         {
             try {
+                throw new Exception("Error report emails disabled in this build..."); //fixme - disabled email reporting since this is a modified build
                 Process.Start(String.Format("mailto:hl7analyst@gmail.com?subject=An Error Has Occurred&body={0}%0A{1}", txtErrorMessage.Text, txtStackTrace.Text));
                 this.Close();
             }

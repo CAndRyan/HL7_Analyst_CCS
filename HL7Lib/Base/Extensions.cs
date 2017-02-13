@@ -77,7 +77,7 @@ namespace HL7Lib.Base
         /// <returns>Returns the specified component if it exists, else returns null</returns>
         public static Component GetByID(this Segment s, string ComponentID)
         {
-            var item = (from field in s.Fields where field.Components.GetByID(ComponentID) != null select field.Components.GetByID(ComponentID)).First();
+            var item = (from field in s.Fields where field.Components.GetByID(ComponentID) != null select field.Components.GetByID(ComponentID)).FirstOrDefault();
             return (HL7Lib.Base.Component)item;
         }
         /// <summary>
@@ -215,7 +215,7 @@ namespace HL7Lib.Base
                 List<EditItem> items = new List<EditItem>();
                 foreach (ConfigItem item in Configuration.LoadPHI()) {
                     Component phi = s.GetByID(item.Id);
-                    if (!String.IsNullOrEmpty(phi.Value)) {
+                    if (!String.IsNullOrEmpty(phi == null ? null : phi.Value)) {
                         //foreach (Replacement pre in item.PreReplace) {
                         //    if (pre.ExactMatch && phi.Value.ToLower() == pre.Match) {
                         //        phi.Value = phi.Value.ToLower();
