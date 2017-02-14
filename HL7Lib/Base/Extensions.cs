@@ -263,6 +263,63 @@ namespace HL7Lib.Base
             return DeIdentify(m, LogWriter.Instance);
         }
         /// <summary>
+        /// Return this message with the same fields but with random values
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        public static Message GenerateFrom(this Message m, ILogWriter logger) {
+            m.Segments = m.Segments.Select(s => s.GenerateFrom(logger)).ToList();
+            return m;
+        }
+        /// <summary>
+        /// Return this message with the same fields but with random values, providing a default ILogWriter
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static Message GenerateFrom(this Message m) {
+            return GenerateFrom(m, LogWriter.Instance);
+        }
+        /// <summary>
+        /// Modify the Fields of this Segment
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private static Segment GenerateFrom(this Segment s, ILogWriter logger) {
+            if (s.Name == "MSH") {      // Modify the MSH segment separately
+                List<Field> uFields = new List<Field>(new Field[] { s.Fields[0], s.Fields[1], s.Fields[2] });
+                uFields.AddRange(s.Fields.GetRange(3, (s.Fields.Count - 4)).Select(f => f.GenerateFrom(logger)));
+                s.Fields = uFields;
+            }
+            else {
+                List<Field> uFields = new List<Field>(new Field[] { s.Fields[0], s.Fields[1] });
+                uFields.AddRange(s.Fields.GetRange(2, (s.Fields.Count - 3)).Select(f => f.GenerateFrom(logger)));
+                s.Fields = uFields;
+            }
+
+            return s;
+        }
+        /// <summary>
+        /// Modify the Components of this Field
+        /// </summary>
+        /// <param name="f"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        private static Field GenerateFrom(this Field f, ILogWriter logger) {
+            f.Components = f.Components.Select(c => c.GenerateFrom(logger)).ToList();
+            return f;
+        }
+        /// <summary>
+        /// Modify the value of this Component
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        private static Component GenerateFrom(this Component c, ILogWriter logger) {
+            c.Value = String.IsNullOrEmpty(c.Value) ? c.Value : "XaaX";
+            return c;
+        }
+        /// <summary>
         /// Edits the message string
         /// </summary>
         /// <param name="m">The message to edit</param>

@@ -2172,7 +2172,10 @@ namespace HL7_Analyst
 
                         //    Msgs.Add(EditValues(msg, items));
                         //}
-                        Msgs.Add((new HL7Lib.Base.Message(msg)).DeIdentify(Log.Instance).InputString);
+
+                        //Msgs.Add((new HL7Lib.Base.Message(msg)).DeIdentify(Log.Instance).InputString);
+
+                        Msgs.Add(new HL7Lib.Base.Message(msg).GenerateFrom(Log.Instance).ToString());
                     }
                     Messages = Msgs;
                     SetMessageDisplay(currentMessage);

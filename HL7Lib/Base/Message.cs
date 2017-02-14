@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace HL7Lib.Base
 {
@@ -99,6 +100,15 @@ namespace HL7Lib.Base
             SegmentNames = new List<string>();
             InputString = HL7Message;
             Parse(HL7Message);
+        }
+        /// <summary>
+        /// Override the ToString() method for a Message object
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString() {
+            return String.Join("\r\n", this.Segments
+                .Select(s => s.ToString(FSeperator, FRSeperator, CSeperator, SCSeperator, EscapeCharacter))
+                );
         }
         /// <summary>
         /// Parses the HL7 message string and creates a list of segments from it

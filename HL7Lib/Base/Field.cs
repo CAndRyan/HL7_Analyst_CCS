@@ -67,5 +67,22 @@ namespace HL7Lib.Base
             f.Components = c;
             return f;
         }
+        /// <summary>
+        /// Overload ToString() method
+        /// </summary>
+        /// <param name="cSeperator"></param>
+        /// <param name="sCSeperator"></param>
+        /// <param name="escapeCharacter"></param>
+        /// <param name="toBeEscaped"></param>
+        /// <returns></returns>
+        public string ToString(string cSeperator, string sCSeperator, string escapeCharacter, List<string> toBeEscaped) {
+            toBeEscaped.Add(cSeperator);
+            toBeEscaped.Add(sCSeperator);
+
+            return String.Join(cSeperator, Components
+                .Select(c => c.ToString(escapeCharacter, toBeEscaped))
+                .Where(c => !String.IsNullOrEmpty(c))
+                );
+        }
     }
 }

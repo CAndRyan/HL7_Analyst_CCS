@@ -15,6 +15,8 @@
 
 using System.Collections.Generic;
 using HL7Lib.Segments;
+using System;
+using System.Linq;
 
 namespace HL7Lib.Base
 {
@@ -1096,6 +1098,32 @@ namespace HL7Lib.Base
                     Description = vtq.Description;
                     Fields = vtq.Fields;
                     break;
+            }
+        }
+        /// <summary>
+        /// Overload ToString() method
+        /// </summary>
+        /// <param name="fSeperator"></param>
+        /// <param name="fRSeperator"></param>
+        /// <param name="cSeperator"></param>
+        /// <param name="sCSeperator"></param>
+        /// <param name="escapeCharacter"></param>
+        /// <returns></returns>
+        public string ToString(string fSeperator, string fRSeperator, string cSeperator, string sCSeperator, string escapeCharacter) {
+            List<string> fSepList = new List<string>(new string[] { fSeperator, fRSeperator });
+            if (Name == "MSH") {      // Modify the MSH segment differently
+                List<string> uFields = new List<string>(new string[] { String.Join("", new Field[] { Fields[0], Fields[1], Fields[2] }
+                    .Select(f => f.ToString(cSeperator, sCSeperator, null, fSepList))
+                    ) });
+                uFields.AddRange(Fields.GetRange(3, (Fields.Count - 4))
+                    .Select(f => f.ToString(cSeperator, sCSeperator, escapeCharacter, fSepList))
+                    );
+                return String.Join(fSeperator, uFields);
+            }
+            else {
+                return String.Join(fSeperator, this.Fields
+                    .Select(f => f.ToString(cSeperator, sCSeperator, escapeCharacter, fSepList))
+                    );
             }
         }
     }

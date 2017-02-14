@@ -47,6 +47,14 @@
             <param name="_Name">The Name of the Component to Construct</param>
             <param name="_ID">The ID of the Component to Construct</param>
         </member>
+        <member name="M:HL7Lib.Base.Component.ToString(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Overload ToString() method
+            </summary>
+            <param name="escapeCharacter"></param>
+            <param name="toBeEscaped"></param>
+            <returns></returns>
+        </member>
         <member name="T:HL7Lib.Base.ComponentID">
             <summary>
             ComponentID Class: Creates a ComponentID object
@@ -235,6 +243,16 @@
             </summary>
             <returns>Returns the segment name field</returns>
         </member>
+        <member name="M:HL7Lib.Base.Field.ToString(System.String,System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Overload ToString() method
+            </summary>
+            <param name="cSeperator"></param>
+            <param name="sCSeperator"></param>
+            <param name="escapeCharacter"></param>
+            <param name="toBeEscaped"></param>
+            <returns></returns>
+        </member>
         <member name="T:HL7Lib.Base.Helper">
             <summary>
             Helper Class: Used to setup helper objects
@@ -409,6 +427,12 @@
             </summary>
             <param name="HL7Message">The HL7 message string</param>
         </member>
+        <member name="M:HL7Lib.Base.Message.ToString">
+            <summary>
+            Override the ToString() method for a Message object
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:HL7Lib.Base.Message.Parse(System.String)">
             <summary>
             Parses the HL7 message string and creates a list of segments from it
@@ -564,6 +588,44 @@
             <param name="m">The message to de-identify.</param>
             <returns>Returns the original message without identifying information.</returns>
         </member>
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message,HL7Lib.Base.ILogWriter)">
+            <summary>
+            Return this message with the same fields but with random values
+            </summary>
+            <param name="m"></param>
+            <param name="logger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message)">
+            <summary>
+            Return this message with the same fields but with random values, providing a default ILogWriter
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Segment,HL7Lib.Base.ILogWriter)">
+            <summary>
+            Modify the Fields of this Segment
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Field,HL7Lib.Base.ILogWriter)">
+            <summary>
+            Modify the Components of this Field
+            </summary>
+            <param name="f"></param>
+            <param name="logger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Component,HL7Lib.Base.ILogWriter)">
+            <summary>
+            Modify the value of this Component
+            </summary>
+            <param name="c"></param>
+            <param name="logger"></param>
+            <returns></returns>
+        </member>
         <member name="M:HL7Lib.Base.Extensions.EditValues(HL7Lib.Base.Message,System.Collections.Generic.List{HL7Lib.Base.EditItem},HL7Lib.Base.ILogWriter)">
             <summary>
             Edits the message string
@@ -716,6 +778,17 @@
             Constructs an HL7 segment for the specified Segments enum object
             </summary>
             <param name="seg">The Segments enum object to construct for</param>
+        </member>
+        <member name="M:HL7Lib.Base.Segment.ToString(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Overload ToString() method
+            </summary>
+            <param name="fSeperator"></param>
+            <param name="fRSeperator"></param>
+            <param name="cSeperator"></param>
+            <param name="sCSeperator"></param>
+            <param name="escapeCharacter"></param>
+            <returns></returns>
         </member>
         <member name="T:HL7Lib.Properties.Resources">
             <summary>

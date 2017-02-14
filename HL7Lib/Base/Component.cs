@@ -63,5 +63,25 @@ namespace HL7Lib.Base
             Name = _Name;
             ID = _ID;
         }
+        /// <summary>
+        /// Overload ToString() method
+        /// </summary>
+        /// <param name="escapeCharacter"></param>
+        /// <param name="toBeEscaped"></param>
+        /// <returns></returns>
+        public string ToString(string escapeCharacter, IEnumerable<string> toBeEscaped) {
+            if (String.IsNullOrEmpty(Value) || (escapeCharacter == null)) {
+                return Value;
+            }
+            else {
+                string val = Value.Replace(escapeCharacter, String.Format("{0}{1}", escapeCharacter, escapeCharacter));
+
+                foreach (string character in toBeEscaped) {
+                    val = val.Replace(character, String.Format("{0}{1}", escapeCharacter, character));
+                }
+
+                return val;
+            }
+        }
     }
 }
