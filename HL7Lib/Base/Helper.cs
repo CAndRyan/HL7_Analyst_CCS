@@ -16,6 +16,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HL7Lib.Base
 {
@@ -46,13 +47,15 @@ namespace HL7Lib.Base
                 }
                 else
                 {
-                    string[] names = HL7Lib.Properties.Resources.Boy_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] names = String.Format("{0}\r\n{1}", HL7Lib.Properties.Resources.Boy_Names, HL7Lib.Properties.Resources.Girl_Names)
+                        .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                     return names.GetValue(rand.Next(names.Length)).ToString();
                 }
             }
             else
             {
-                string[] names = HL7Lib.Properties.Resources.Boy_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] names = String.Format("{0}\r\n{1}", HL7Lib.Properties.Resources.Boy_Names, HL7Lib.Properties.Resources.Girl_Names)
+                        .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 return names.GetValue(rand.Next(names.Length)).ToString();
             }
         }

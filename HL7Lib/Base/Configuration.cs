@@ -22,10 +22,95 @@ namespace HL7Lib.Base {
         /// <summary>
         /// Static method to load the PHI field configurations
         /// </summary>
+        /// <param name="logger">an ILogWriter instance</param>
         /// <returns>A list of config items storing the PHI config data</returns>
-        public static IEnumerable<ConfigItem> LoadPHI() {
+        public static IEditManager LoadPHI(ILogWriter logger) {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), PHI_FIELDS_PATH);
-            return JsonConvert.DeserializeObject<IEnumerable<ConfigItem>>(File.ReadAllText(path));
+            return new EditManager(JsonConvert.DeserializeObject<IEnumerable<ConfigItem>>(File.ReadAllText(path)), logger);
+        }
+        /// <summary>
+        /// Static method to load the PHI field configurations
+        /// </summary>
+        /// <returns>A list of config items storing the PHI config data</returns>
+        public static IEditManager LoadPHI() {
+            return LoadPHI(LogWriter.Instance);
+        }
+    }
+    /// <summary>
+    /// Contract for an EditManager to follow
+    /// </summary>
+    public interface IEditManager {
+        /// <summary>
+        /// Check if the EditManager contains a config for this componentId
+        /// </summary>
+        /// <param name="componentId"></param>
+        /// <returns>Whether or not a config exists for this componentId</returns>
+        bool Contains(string componentId);
+        /// <summary>
+        /// Edits a component, determined by the ConfigItem for this component
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>Returns an updated component, modified according to the ConfigItem</returns>
+        Component Edit(Component item);
+    }
+    /// <summary>
+    /// IEditManager to manage custom Component editing
+    /// </summary>
+    public class EditManager : IEditManager {
+        /// <summary>
+        /// The internal dictionary for checking and retrieving necessary updates
+        /// </summary>
+        private Dictionary<string, ConfigItem> Items;
+        /// <summary>
+        /// The ILogWriter to handle any errors
+        /// </summary>
+        private ILogWriter Logger;
+        /// <summary>
+        /// EditManager constructor
+        /// </summary>
+        /// <param name="items">an IEnumerable of ConfigItems</param>
+        /// <param name="logger">an ILogWriter instance</param>
+        public EditManager(IEnumerable<ConfigItem> items, ILogWriter logger) {
+            Items = items.ToDictionary(item => item.Id, item => item);
+            Logger = logger;
+        }
+        /// <summary>
+        /// EditManager constructor that will use default ILogWriter
+        /// </summary>
+        /// <param name="items"></param>
+        public EditManager(IEnumerable<ConfigItem> items) : this(items, LogWriter.Instance) { }
+        /// <summary>
+        /// Check if the EditManager contains a config for this componentId
+        /// </summary>
+        /// <param name="componentId">the id of a component to check</param>
+        /// <returns>Whether or not a config exists for this componentId</returns>
+        public bool Contains(string componentId) {
+            return Items.ContainsKey(componentId);
+        }
+        /// <summary>
+        /// Edits a component, determined by the ConfigItem for this component
+        /// </summary>
+        /// <param name="item">a Component to be updated according to a ConfigItem for it</param>
+        /// <returns></returns>
+        public Component Edit(Component item) {
+            if (Contains(item.ID)) {
+                ConfigItem config = Items[item.ID];
+                
+                if (config.Generator != null) {
+                    try {
+                        //fixme - Add support for Generators
+                    }
+                    catch (Exception ex) {
+                        Logger.LogException(ex);
+                    }
+                }
+                else if (config.Static != null) {
+                    item.Value = config.Static;
+                }
+                
+            }
+            
+            return item;
         }
     }
     /// <summary>
@@ -81,7 +166,7 @@ namespace HL7Lib.Base {
         /// </summary>
         public string Match { get; set; }
         /// <summary>
-        /// The string to replce a match with
+        /// The string to replace a match with
         /// </summary>
         public string Replace { get; set; }
         /// <summary>

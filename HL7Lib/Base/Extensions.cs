@@ -208,51 +208,53 @@ namespace HL7Lib.Base
         /// <param name="m">The message to de-identify.</param>
         /// <returns>Returns the original message without identifying information.</returns>
         public static Message DeIdentify(this Message m, ILogWriter logger) {
-            List<Segment> segments = m.Segments.Get("PID");
-            if (segments.Count == 1) {
-                Segment s = segments[0];
+            //List<Segment> segments = m.Segments.Get("PID");
+            //if (segments.Count == 1) {
+            //    Segment s = segments[0];
 
-                List<EditItem> items = new List<EditItem>();
-                foreach (ConfigItem item in Configuration.LoadPHI()) {
-                    Component phi = s.GetByID(item.Id);
-                    if (!String.IsNullOrEmpty(phi == null ? null : phi.Value)) {
-                        //foreach (Replacement pre in item.PreReplace) {
-                        //    if (pre.ExactMatch && phi.Value.ToLower() == pre.Match) {
-                        //        phi.Value = phi.Value.ToLower();
-                        //        phi.Value = phi.Value.Replace(pre.Match, pre.Replace);
-                        //    }
-                        //    else {  //fixme - update for regex and upper/lower case
-                        //        //
-                        //    }
-                        //}
-                        items.Add(new EditItem(phi.ID, phi.Value, item));
-                    }
-                }
+            //    List<EditItem> items = new List<EditItem>();
+            //    foreach (ConfigItem item in Configuration.LoadPHI()) {
+            //        Component phi = s.GetByID(item.Id);
+            //        if (!String.IsNullOrEmpty(phi == null ? null : phi.Value)) {
+            //            //foreach (Replacement pre in item.PreReplace) {
+            //            //    if (pre.ExactMatch && phi.Value.ToLower() == pre.Match) {
+            //            //        phi.Value = phi.Value.ToLower();
+            //            //        phi.Value = phi.Value.Replace(pre.Match, pre.Replace);
+            //            //    }
+            //            //    else {  //fixme - update for regex and upper/lower case
+            //            //        //
+            //            //    }
+            //            //}
+            //            items.Add(new EditItem(phi.ID, phi.Value, item));
+            //        }
+            //    }
 
-                //HL7Lib.Base.Component last = s.GetByID("PID-5.1");
-                //HL7Lib.Base.Component first = s.GetByID("PID-5.2");
-                //HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
-                //HL7Lib.Base.Component address = s.GetByID("PID-11.1");
-                //HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
-                //HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
+            //    //HL7Lib.Base.Component last = s.GetByID("PID-5.1");
+            //    //HL7Lib.Base.Component first = s.GetByID("PID-5.2");
+            //    //HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
+            //    //HL7Lib.Base.Component address = s.GetByID("PID-11.1");
+            //    //HL7Lib.Base.Component mrn = s.GetByID("PID-18.1");
+            //    //HL7Lib.Base.Component ssn = s.GetByID("PID-19.1");
 
-                //List<EditItem> items = new List<EditItem>();
-                //if (!String.IsNullOrEmpty(last.Value))
-                //    items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
-                //if (!String.IsNullOrEmpty(first.Value))
-                //    items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
-                //if (!String.IsNullOrEmpty(address.Value))
-                //    items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
-                //if (!String.IsNullOrEmpty(mrn.Value))
-                //    items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
-                //if (!String.IsNullOrEmpty(ssn.Value))
-                //    items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
+            //    //List<EditItem> items = new List<EditItem>();
+            //    //if (!String.IsNullOrEmpty(last.Value))
+            //    //    items.Add(new EditItem(last.ID, last.Value, HL7Lib.Base.Helper.RandomLastName()));
+            //    //if (!String.IsNullOrEmpty(first.Value))
+            //    //    items.Add(new EditItem(first.ID, first.Value, HL7Lib.Base.Helper.RandomFirstName(sex.Value)));
+            //    //if (!String.IsNullOrEmpty(address.Value))
+            //    //    items.Add(new EditItem(address.ID, address.Value, HL7Lib.Base.Helper.RandomAddress()));
+            //    //if (!String.IsNullOrEmpty(mrn.Value))
+            //    //    items.Add(new EditItem(mrn.ID, mrn.Value, HL7Lib.Base.Helper.RandomMRN()));
+            //    //if (!String.IsNullOrEmpty(ssn.Value))
+            //    //    items.Add(new EditItem(ssn.ID, ssn.Value, "999-99-9999"));
 
-                return EditValues(m, items, logger);
-            }
-            else {
-                return null;
-            }
+            //    return EditValues(m, items, logger);
+            //}
+            //else {
+            //    return null;
+            //}
+
+            return m.GenerateFrom(logger, Configuration.LoadPHI());
         }
         /// <summary>
         /// Removes patient identifying information from message and replaces it with made up patient data, providing a default ILogWriter
@@ -268,8 +270,8 @@ namespace HL7Lib.Base
         /// <param name="m"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        public static Message GenerateFrom(this Message m, ILogWriter logger) {
-            m.Segments = m.Segments.Select(s => s.GenerateFrom(logger)).ToList();
+        public static Message GenerateFrom(this Message m, ILogWriter logger, IEditManager editor = null) {
+            m.Segments = m.Segments.Select(s => s.GenerateFrom(logger, editor)).ToList();
             return m;
         }
         /// <summary>
@@ -277,23 +279,24 @@ namespace HL7Lib.Base
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        public static Message GenerateFrom(this Message m) {
-            return GenerateFrom(m, LogWriter.Instance);
+        public static Message GenerateFrom(this Message m, IEditManager editor = null) {
+            return GenerateFrom(m, LogWriter.Instance, editor);
         }
         /// <summary>
         /// Modify the Fields of this Segment
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private static Segment GenerateFrom(this Segment s, ILogWriter logger) {
+        private static Segment GenerateFrom(this Segment s, ILogWriter logger, IEditManager editor = null) {
             if (s.Name == "MSH") {      // Modify the MSH segment separately
+                return s;
                 List<Field> uFields = new List<Field>(new Field[] { s.Fields[0], s.Fields[1], s.Fields[2] });
-                uFields.AddRange(s.Fields.GetRange(3, (s.Fields.Count - 4)).Select(f => f.GenerateFrom(logger)));
+                uFields.AddRange(s.Fields.GetRange(3, (s.Fields.Count - 4)).Select(f => f.GenerateFrom(logger, editor)));
                 s.Fields = uFields;
             }
             else {
                 List<Field> uFields = new List<Field>(new Field[] { s.Fields[0], s.Fields[1] });
-                uFields.AddRange(s.Fields.GetRange(2, (s.Fields.Count - 3)).Select(f => f.GenerateFrom(logger)));
+                uFields.AddRange(s.Fields.GetRange(2, (s.Fields.Count - 3)).Select(f => f.GenerateFrom(logger, editor)));
                 s.Fields = uFields;
             }
 
@@ -305,8 +308,8 @@ namespace HL7Lib.Base
         /// <param name="f"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        private static Field GenerateFrom(this Field f, ILogWriter logger) {
-            f.Components = f.Components.Select(c => c.GenerateFrom(logger)).ToList();
+        private static Field GenerateFrom(this Field f, ILogWriter logger, IEditManager editor = null) {
+            f.Components = f.Components.Select(c => c.GenerateFrom(logger, editor)).ToList();
             return f;
         }
         /// <summary>
@@ -315,9 +318,14 @@ namespace HL7Lib.Base
         /// <param name="c"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        private static Component GenerateFrom(this Component c, ILogWriter logger) {
-            c.Value = String.IsNullOrEmpty(c.Value) ? c.Value : "XaaX";
-            return c;
+        private static Component GenerateFrom(this Component c, ILogWriter logger, IEditManager editor = null) {
+            if (editor == null) {
+                c.Value = String.IsNullOrEmpty(c.Value) ? c.Value : "XaaX";
+                return c;
+            }
+            else {
+                return editor.Edit(c);
+            }
         }
         /// <summary>
         /// Edits the message string
