@@ -2175,7 +2175,9 @@ namespace HL7_Analyst
 
                         //Msgs.Add((new HL7Lib.Base.Message(msg)).DeIdentify(Log.Instance).InputString);
 
-                        Msgs.Add(new HL7Lib.Base.Message(msg).GenerateFrom(Log.Instance).ToString());
+                        //Msgs.Add(new HL7Lib.Base.Message(msg).GenerateFrom(Log.Instance).ToString()); // wipe all but message
+
+                        Msgs.Add(new HL7Lib.Base.Message(msg).DeIdentify(Log.Instance).ToString());
                     }
                     Messages = Msgs;
                     SetMessageDisplay(currentMessage);

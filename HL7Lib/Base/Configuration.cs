@@ -99,6 +99,7 @@ namespace HL7Lib.Base {
                 if (config.Generator != null) {
                     try {
                         //fixme - Add support for Generators
+                        item.Value = "TO_GENERATE";
                     }
                     catch (Exception ex) {
                         Logger.LogException(ex);

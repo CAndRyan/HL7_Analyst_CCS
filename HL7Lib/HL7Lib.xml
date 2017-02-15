@@ -90,11 +90,79 @@
             Default value to return for a component
             </summary>
         </member>
+        <member name="M:HL7Lib.Base.Configuration.LoadPHI(HL7Lib.Base.ILogWriter)">
+            <summary>
+            Static method to load the PHI field configurations
+            </summary>
+            <param name="logger">an ILogWriter instance</param>
+            <returns>A list of config items storing the PHI config data</returns>
+        </member>
         <member name="M:HL7Lib.Base.Configuration.LoadPHI">
             <summary>
             Static method to load the PHI field configurations
             </summary>
             <returns>A list of config items storing the PHI config data</returns>
+        </member>
+        <member name="T:HL7Lib.Base.IEditManager">
+            <summary>
+            Contract for an EditManager to follow
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.IEditManager.Contains(System.String)">
+            <summary>
+            Check if the EditManager contains a config for this componentId
+            </summary>
+            <param name="componentId"></param>
+            <returns>Whether or not a config exists for this componentId</returns>
+        </member>
+        <member name="M:HL7Lib.Base.IEditManager.Edit(HL7Lib.Base.Component)">
+            <summary>
+            Edits a component, determined by the ConfigItem for this component
+            </summary>
+            <param name="item"></param>
+            <returns>Returns an updated component, modified according to the ConfigItem</returns>
+        </member>
+        <member name="T:HL7Lib.Base.EditManager">
+            <summary>
+            IEditManager to manage custom Component editing
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.EditManager.Items">
+            <summary>
+            The internal dictionary for checking and retrieving necessary updates
+            </summary>
+        </member>
+        <member name="F:HL7Lib.Base.EditManager.Logger">
+            <summary>
+            The ILogWriter to handle any errors
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem},HL7Lib.Base.ILogWriter)">
+            <summary>
+            EditManager constructor
+            </summary>
+            <param name="items">an IEnumerable of ConfigItems</param>
+            <param name="logger">an ILogWriter instance</param>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem})">
+            <summary>
+            EditManager constructor that will use default ILogWriter
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.Contains(System.String)">
+            <summary>
+            Check if the EditManager contains a config for this componentId
+            </summary>
+            <param name="componentId">the id of a component to check</param>
+            <returns>Whether or not a config exists for this componentId</returns>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.Edit(HL7Lib.Base.Component)">
+            <summary>
+            Edits a component, determined by the ConfigItem for this component
+            </summary>
+            <param name="item">a Component to be updated according to a ConfigItem for it</param>
+            <returns></returns>
         </member>
         <member name="T:HL7Lib.Base.ConfigItem">
             <summary>
@@ -149,7 +217,7 @@
         </member>
         <member name="P:HL7Lib.Base.Replacement.Replace">
             <summary>
-            The string to replce a match with
+            The string to replace a match with
             </summary>
         </member>
         <member name="P:HL7Lib.Base.Replacement.ExactMatch">
@@ -588,7 +656,7 @@
             <param name="m">The message to de-identify.</param>
             <returns>Returns the original message without identifying information.</returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message,HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message,HL7Lib.Base.ILogWriter,HL7Lib.Base.IEditManager)">
             <summary>
             Return this message with the same fields but with random values
             </summary>
@@ -596,21 +664,21 @@
             <param name="logger"></param>
             <returns></returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message)">
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Message,HL7Lib.Base.IEditManager)">
             <summary>
             Return this message with the same fields but with random values, providing a default ILogWriter
             </summary>
             <param name="m"></param>
             <returns></returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Segment,HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Segment,HL7Lib.Base.ILogWriter,HL7Lib.Base.IEditManager)">
             <summary>
             Modify the Fields of this Segment
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Field,HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Field,HL7Lib.Base.ILogWriter,HL7Lib.Base.IEditManager)">
             <summary>
             Modify the Components of this Field
             </summary>
@@ -618,7 +686,7 @@
             <param name="logger"></param>
             <returns></returns>
         </member>
-        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Component,HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.Extensions.GenerateFrom(HL7Lib.Base.Component,HL7Lib.Base.ILogWriter,HL7Lib.Base.IEditManager)">
             <summary>
             Modify the value of this Component
             </summary>
