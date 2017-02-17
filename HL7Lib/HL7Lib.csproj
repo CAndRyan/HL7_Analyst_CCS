@@ -223,7 +223,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Resources\Boy Names.txt" />
     <None Include="Resources\PHI_Fields_Original.json" />
