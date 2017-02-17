@@ -66,11 +66,25 @@ namespace HL7Lib.Base {
         /// </summary>
         private ILogWriter Logger;
         /// <summary>
+        /// A PluginLoader
+        /// </summary>
+        private HL7Lib.Plugin.DeIdentifyPluginLoader PluginLoader;
+        /// <summary>
         /// EditManager constructor
         /// </summary>
         /// <param name="items">an IEnumerable of ConfigItems</param>
         /// <param name="logger">an ILogWriter instance</param>
         public EditManager(IEnumerable<ConfigItem> items, ILogWriter logger) {
+            PluginLoader = new HL7Lib.Plugin.DeIdentifyPluginLoader();
+            ICollection<HL7Lib.Plugin.IDeIdentifyPlugin> plugins = PluginLoader.GetPluginObjects();
+
+            // Load the Generators for each ConfigItem
+            foreach (ConfigItem item in items) {
+                if (item.GeneratorName != null) {
+                    item.SetGenerator(plugins.Where(p => p.Name == item.GeneratorName).FirstOrDefault());
+                }
+            }
+            
             Items = items.ToDictionary(item => item.Id, item => item);
             Logger = logger;
         }
@@ -99,7 +113,7 @@ namespace HL7Lib.Base {
                 if (config.Generator != null) {
                     try {
                         //fixme - Add support for Generators
-                        item.Value = "TO_GENERATE";
+                        item.Value = config.Generator.Generate(item, config);
                     }
                     catch (Exception ex) {
                         Logger.LogException(ex);
@@ -117,7 +131,7 @@ namespace HL7Lib.Base {
     /// <summary>
     /// Config items to store config data for components
     /// </summary>
-    public class ConfigItem {
+    public class ConfigItem : HL7Lib.Plugin.IDeIdentifyPluginContext {
         /// <summary>
         /// Id for accessing this component from a Message
         /// </summary>
@@ -133,7 +147,11 @@ namespace HL7Lib.Base {
         /// <summary>
         /// Generator to use for modifying this component
         /// </summary>
-        public string Generator { get; set; }
+        public HL7Lib.Plugin.IDeIdentifyPlugin Generator { get; private set; }
+        /// <summary>
+        /// Generator name to use
+        /// </summary>
+        public string GeneratorName { get; set; }
         /// <summary>
         /// Static replacement for this component (used if the Generator is null)
         /// </summary>
@@ -147,7 +165,7 @@ namespace HL7Lib.Base {
         /// </summary>
         /// <returns></returns>
         public string GetValue() {
-            if (Generator != null) {
+            if (GeneratorName != null) {
                 return "GENERATED";
             }
             else if (Static != null) {
@@ -156,6 +174,13 @@ namespace HL7Lib.Base {
             else {
                 return Configuration.PHI_DEFAULT_VALUE;
             }
+        }
+        /// <summary>
+        /// Method to set the Generator plugin to use
+        /// </summary>
+        /// <param name="plugin">The plugin to use</param>
+        public void SetGenerator(HL7Lib.Plugin.IDeIdentifyPlugin plugin) {
+            Generator = plugin;
         }
     }
     /// <summary>

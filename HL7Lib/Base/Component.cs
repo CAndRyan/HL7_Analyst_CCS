@@ -20,7 +20,7 @@ namespace HL7Lib.Base
     /// <summary>
     /// Component Class: Constructs an HL7 Component Object
     /// </summary>
-    public class Component
+    public class Component : HL7Lib.Plugin.IDeIdentifiable
     {
         /// <summary>
         /// The Name of the Component

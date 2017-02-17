@@ -3,7 +3,8 @@
         "Label": "Last_Name",
         "Id": "PID-5.1",
         "Type": "name",
-        "Generator": "a",
+        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "LAST"
     },
     {
@@ -11,6 +12,7 @@
         "Id": "PID-5.2",
         "Type": "name",
         "Generator": null,
+        "GeneratorName": "Test_Generator2",
         "Static": "FIRST"
     },
     {

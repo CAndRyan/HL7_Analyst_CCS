@@ -137,6 +137,11 @@
             The ILogWriter to handle any errors
             </summary>
         </member>
+        <member name="F:HL7Lib.Base.EditManager.PluginLoader">
+            <summary>
+            A PluginLoader
+            </summary>
+        </member>
         <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem},HL7Lib.Base.ILogWriter)">
             <summary>
             EditManager constructor
@@ -189,6 +194,11 @@
             Generator to use for modifying this component
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.ConfigItem.GeneratorName">
+            <summary>
+            Generator name to use
+            </summary>
+        </member>
         <member name="P:HL7Lib.Base.ConfigItem.Static">
             <summary>
             Static replacement for this component (used if the Generator is null)
@@ -204,6 +214,12 @@
             Get the modified value for the related component
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.ConfigItem.SetGenerator(HL7Lib.Plugin.IDeIdentifyPlugin)">
+            <summary>
+            Method to set the Generator plugin to use
+            </summary>
+            <param name="plugin">The plugin to use</param>
         </member>
         <member name="T:HL7Lib.Base.Replacement">
             <summary>
@@ -856,6 +872,230 @@
             <param name="cSeperator"></param>
             <param name="sCSeperator"></param>
             <param name="escapeCharacter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HL7Lib.Plugin.IDeIdentifyPlugin">
+            <summary>
+            Plugin interface to be implemented by a DeIdentify plugin
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.IDeIdentifyPlugin.Generate(HL7Lib.Plugin.IDeIdentifiable,HL7Lib.Plugin.IDeIdentifyPluginContext)">
+            <summary>
+            Public method for access through this application
+            </summary>
+            <param name="item">A de-identifiable item</param>
+            <param name="context">Some context for generating data from the provided item</param>
+            <returns></returns>
+        </member>
+        <member name="T:HL7Lib.Plugin.IDeIdentifiable">
+            <summary>
+            Interface for any item that can be de-identifiable
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IDeIdentifiable.Value">
+            <summary>
+            The current value of this DeIdentifiable object
+            </summary>
+        </member>
+        <member name="T:HL7Lib.Plugin.IDeIdentifyPluginContext">
+            <summary>
+            Plugin context interface for providing IDeIdentifyPlugin with information
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IDeIdentifyPluginContext.Type">
+            <summary>
+            Type of DeIdentifiable item - used for generation
+            </summary>
+        </member>
+        <member name="T:HL7Lib.Plugin.DeIdentifyPluginLoader">
+            <summary>
+            Plugin loader for deIdentify plugins
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.DeIdentifyPluginLoader._DefaultPluginDirectory">
+            <summary>
+            A default directory for plugins
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.DeIdentifyPluginLoader.#ctor">
+            <summary>
+            Empty constructor which calls the base constructor with an IDeIdentifyPlugin Type
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.DeIdentifyPluginLoader.GetPluginObjects(System.Collections.Generic.ICollection{System.Type})">
+            <summary>
+            Wrapper for the base GetPluginObjects method
+            </summary>
+            <param name="pluginTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.DeIdentifyPluginLoader.GetPluginObjects(System.String)">
+            <summary>
+            Wrapper for the base GetPluginObjects method - the most direct endpoint for this object
+            </summary>
+            <param name="pluginDir">The directory to search</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.DeIdentifyPluginLoader.GetPluginObjects">
+            <summary>
+            Wrapper for the base GetPluginObjects method, using the default directory - the most direct endpoint for this object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HL7Lib.Plugin.IPlugin">
+            <summary>
+            Generic plugin interface - to be inherited by specific interfaces - used for generic plugin loaders
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IPlugin.Name">
+            <summary>
+            Plugin name
+            </summary>
+        </member>
+        <member name="T:HL7Lib.Plugin.IPluginLoader">
+            <summary>
+            Interface for a plugin loader class
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IPluginLoader.DefaultPluginDirectory">
+            <summary>
+            A default directory for plugins
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IPluginLoader.PluginType">
+            <summary>
+            Contains the Type to be loaded from plugins
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetLibraryPaths(System.String)">
+            <summary>
+            Return the DLL paths from the plugin directory
+            </summary>
+            <param name="pluginDir">The directory to search</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetLibraryPaths">
+            <summary>
+            Return the DLL paths from the plugin directory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.LoadAssemblies(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            A method to load plugin assemblies
+            </summary>
+            <param name="dllPaths">The library paths to load from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetPluginTypes(System.Collections.Generic.ICollection{System.Reflection.Assembly})">
+            <summary>
+            Return the Types implementing the PluginType interface from the provided Assembly objects
+            </summary>
+            <param name="assemblies">A collection of Assembly objects to retrieve Types from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetPluginObjects``1(System.Collections.Generic.ICollection{System.Type})">
+            <summary>
+            Return a collection of object instances of the provided plugin Types
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
+            <param name="pluginTypes">A collection of Types to be instantiated from the plugin libraries</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetPluginObjects``1(System.String)">
+            <summary>
+            Return a collection of object instances, loaded from the provided plugin directory - the most direct endpoint for this object
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
+            <param name="pluginDir">The directory to search</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.IPluginLoader.GetPluginObjects``1">
+            <summary>
+            Return a collection of object instances, loaded from the provided plugin directory - the most direct endpoint for this object
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:HL7Lib.Plugin.PluginLoaderBase">
+            <summary>
+            A base plugin loader class
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.PluginLoaderBase._DefaultPluginDirectory">
+            <summary>
+            A default directory for plugins
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.PluginLoaderBase.DefaultPluginDirectory">
+            <summary>
+            A default directory for plugins, retrieval will create the directory if it does not exist
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.PluginLoaderBase.PluginType">
+            <summary>
+            Contains the interface Type to be loaded from plugins
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.#ctor">
+            <summary>
+            Base constructor - uses the default IPlugin Type
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.#ctor(System.Type)">
+            <summary>
+            Constructor accepting the plugin Type
+            </summary>
+            <param name="pluginType"></param>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetLibraryPaths(System.String)">
+            <summary>
+            Return the DLL paths from the plugin directory
+            </summary>
+            <param name="pluginDir">The directory to search</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetLibraryPaths">
+            <summary>
+            Return the DLL paths from the plugin directory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.LoadAssemblies(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            A method to load plugin assemblies
+            </summary>
+            <param name="dllPaths">The library paths to load from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetPluginTypes(System.Collections.Generic.ICollection{System.Reflection.Assembly})">
+            <summary>
+            Return the Types implementing the PluginType interface from the provided Assembly objects
+            </summary>
+            <param name="assemblies">A collection of Assembly objects to retrieve Types from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetPluginObjects``1(System.Collections.Generic.ICollection{System.Type})">
+            <summary>
+            Return a collection of object instances of the provided plugin Types
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
+            <param name="pluginTypes">A collection of Types to be instantiated from the plugin libraries</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetPluginObjects``1(System.String)">
+            <summary>
+            Return a collection of object instances, loaded from the provided plugin directory - the most direct endpoint for this object
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
+            <param name="pluginDir">The directory to search</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Plugin.PluginLoaderBase.GetPluginObjects``1">
+            <summary>
+            Return a collection of object instances, loaded from the plugin directory - the most direct endpoint for this object
+            </summary>
+            <typeparam name="T">Provide the PluginType property of the loader</typeparam>
             <returns></returns>
         </member>
         <member name="T:HL7Lib.Properties.Resources">
