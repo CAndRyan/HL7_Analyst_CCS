@@ -24,16 +24,16 @@ namespace HL7Lib.Base {
         /// </summary>
         /// <param name="logger">an ILogWriter instance</param>
         /// <returns>A list of config items storing the PHI config data</returns>
-        public static IEditManager LoadPHI(ILogWriter logger) {
+        public static IEditManager LoadPHI(Message msg, ILogWriter logger) {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), PHI_FIELDS_PATH);
-            return new EditManager(JsonConvert.DeserializeObject<IEnumerable<ConfigItem>>(File.ReadAllText(path)), logger);
+            return new EditManager(JsonConvert.DeserializeObject<IEnumerable<ConfigItem>>(File.ReadAllText(path)), msg, logger);
         }
         /// <summary>
         /// Static method to load the PHI field configurations
         /// </summary>
         /// <returns>A list of config items storing the PHI config data</returns>
-        public static IEditManager LoadPHI() {
-            return LoadPHI(LogWriter.Instance);
+        public static IEditManager LoadPHI(Message msg) {
+            return LoadPHI(msg, LogWriter.Instance);
         }
     }
     /// <summary>
@@ -74,15 +74,18 @@ namespace HL7Lib.Base {
         /// </summary>
         /// <param name="items">an IEnumerable of ConfigItems</param>
         /// <param name="logger">an ILogWriter instance</param>
-        public EditManager(IEnumerable<ConfigItem> items, ILogWriter logger) {
+        public EditManager(IEnumerable<ConfigItem> items, Message msg, ILogWriter logger) {
             PluginLoader = new HL7Lib.Plugin.DeIdentifyPluginLoader();
             ICollection<HL7Lib.Plugin.IDeIdentifyPlugin> plugins = PluginLoader.GetPluginObjects();
 
-            // Load the Generators for each ConfigItem
+            // Load the Generators and Gender for each ConfigItem
+            Gender gender = msg.GetGender();
             foreach (ConfigItem item in items) {
                 if (item.GeneratorName != null) {
                     item.SetGenerator(plugins.Where(p => p.Name == item.GeneratorName).FirstOrDefault());
                 }
+
+                item.Gender = gender;
             }
             
             Items = items.ToDictionary(item => item.Id, item => item);
@@ -92,7 +95,7 @@ namespace HL7Lib.Base {
         /// EditManager constructor that will use default ILogWriter
         /// </summary>
         /// <param name="items"></param>
-        public EditManager(IEnumerable<ConfigItem> items) : this(items, LogWriter.Instance) { }
+        public EditManager(IEnumerable<ConfigItem> items, Message msg) : this(items, msg, LogWriter.Instance) { }
         /// <summary>
         /// Check if the EditManager contains a config for this componentId
         /// </summary>
@@ -112,7 +115,6 @@ namespace HL7Lib.Base {
                 
                 if (config.Generator != null) {
                     try {
-                        //fixme - Add support for Generators
                         item.Value = config.Generator.Generate(item, config);
                     }
                     catch (Exception ex) {
@@ -144,6 +146,10 @@ namespace HL7Lib.Base {
         /// Type of Component
         /// </summary>
         public string Type { get; set; }
+        /// <summary>
+        /// The gender of the patient being referenced
+        /// </summary>
+        public Gender Gender { get; set; } = Gender.unknown;
         /// <summary>
         /// Generator to use for modifying this component
         /// </summary>

@@ -33,6 +33,10 @@ namespace HL7Lib.Plugin {
         /// Type of DeIdentifiable item - used for generation
         /// </summary>
         string Type { get; }
+        /// <summary>
+        /// The gender of the patient being referenced
+        /// </summary>
+        HL7Lib.Base.Gender Gender { get; }
     }
     /// <summary>
     /// Plugin loader for deIdentify plugins

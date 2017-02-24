@@ -90,14 +90,14 @@
             Default value to return for a component
             </summary>
         </member>
-        <member name="M:HL7Lib.Base.Configuration.LoadPHI(HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.Configuration.LoadPHI(HL7Lib.Base.Message,HL7Lib.Base.ILogWriter)">
             <summary>
             Static method to load the PHI field configurations
             </summary>
             <param name="logger">an ILogWriter instance</param>
             <returns>A list of config items storing the PHI config data</returns>
         </member>
-        <member name="M:HL7Lib.Base.Configuration.LoadPHI">
+        <member name="M:HL7Lib.Base.Configuration.LoadPHI(HL7Lib.Base.Message)">
             <summary>
             Static method to load the PHI field configurations
             </summary>
@@ -142,14 +142,14 @@
             A PluginLoader
             </summary>
         </member>
-        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem},HL7Lib.Base.ILogWriter)">
+        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem},HL7Lib.Base.Message,HL7Lib.Base.ILogWriter)">
             <summary>
             EditManager constructor
             </summary>
             <param name="items">an IEnumerable of ConfigItems</param>
             <param name="logger">an ILogWriter instance</param>
         </member>
-        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem})">
+        <member name="M:HL7Lib.Base.EditManager.#ctor(System.Collections.Generic.IEnumerable{HL7Lib.Base.ConfigItem},HL7Lib.Base.Message)">
             <summary>
             EditManager constructor that will use default ILogWriter
             </summary>
@@ -187,6 +187,11 @@
         <member name="P:HL7Lib.Base.ConfigItem.Type">
             <summary>
             Type of Component
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Gender">
+            <summary>
+            The gender of the patient being referenced
             </summary>
         </member>
         <member name="P:HL7Lib.Base.ConfigItem.Generator">
@@ -348,6 +353,29 @@
             </summary>
             <param name="Sex">The sex in the PID segment</param>
             <returns>Returns a randomly selected name from a list of names based on the sex of the patient</returns>
+        </member>
+        <member name="M:HL7Lib.Base.Helper.RandomFirstName(HL7Lib.Base.Gender,System.Random)">
+            <summary>
+            Gets a random first name based on the gender and a supplied Random object
+            </summary>
+            <param name="gender">The Gender to use for generating</param>
+            <param name="rand">A Random object to use for generating the name</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Helper.RandomFirstName(HL7Lib.Base.Gender,System.Int32)">
+            <summary>
+            Gets a random first name based on the gender and a supplied Random object seed value
+            </summary>
+            <param name="gender">The Gender to use for generating</param>
+            <param name="seed">A seed for creating a Random object</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.Helper.RandomFirstName(HL7Lib.Base.Gender)">
+            <summary>
+            Gets a random first name based on the gender, using a new Random object
+            </summary>
+            <param name="gender">The Gender to use for generating</param>
+            <returns></returns>
         </member>
         <member name="M:HL7Lib.Base.Helper.RandomLastName">
             <summary>
@@ -905,6 +933,11 @@
         <member name="P:HL7Lib.Plugin.IDeIdentifyPluginContext.Type">
             <summary>
             Type of DeIdentifiable item - used for generation
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Plugin.IDeIdentifyPluginContext.Gender">
+            <summary>
+            The gender of the patient being referenced
             </summary>
         </member>
         <member name="T:HL7Lib.Plugin.DeIdentifyPluginLoader">

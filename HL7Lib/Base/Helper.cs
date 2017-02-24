@@ -32,32 +32,45 @@ namespace HL7Lib.Base
         /// <returns>Returns a randomly selected name from a list of names based on the sex of the patient</returns>
         public static string RandomFirstName(string Sex)
         {
-            Random rand = new Random();
-            if (!String.IsNullOrEmpty(Sex))
-            {                
-                if (Sex.ToUpper() == "MALE" || Sex.ToUpper() == "M")
-                {
-                    string[] names = HL7Lib.Properties.Resources.Boy_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    return names.GetValue(rand.Next(names.Length)).ToString();
-                }
-                else if (Sex.ToUpper() == "FEMALE" || Sex.ToUpper() == "F")
-                {
-                    string[] names = HL7Lib.Properties.Resources.Girl_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    return names.GetValue(rand.Next(names.Length)).ToString();
-                }
-                else
-                {
-                    string[] names = String.Format("{0}\r\n{1}", HL7Lib.Properties.Resources.Boy_Names, HL7Lib.Properties.Resources.Girl_Names)
-                        .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    return names.GetValue(rand.Next(names.Length)).ToString();
-                }
-            }
-            else
-            {
-                string[] names = String.Format("{0}\r\n{1}", HL7Lib.Properties.Resources.Boy_Names, HL7Lib.Properties.Resources.Girl_Names)
-                        .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            return RandomFirstName(GetGenderFromString(Sex));
+        }
+        /// <summary>
+        /// Gets a random first name based on the gender and a supplied Random object
+        /// </summary>
+        /// <param name="gender">The Gender to use for generating</param>
+        /// <param name="rand">A Random object to use for generating the name</param>
+        /// <returns></returns>
+        public static string RandomFirstName(Gender gender, Random rand) {
+            if (gender == Gender.male) {
+                string[] names = HL7Lib.Properties.Resources.Boy_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 return names.GetValue(rand.Next(names.Length)).ToString();
             }
+            else if (gender == Gender.female) {
+                string[] names = HL7Lib.Properties.Resources.Girl_Names.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                return names.GetValue(rand.Next(names.Length)).ToString();
+            }
+            else {
+                string[] names = String.Format("{0}\r\n{1}", HL7Lib.Properties.Resources.Boy_Names, HL7Lib.Properties.Resources.Girl_Names)
+                    .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                return names.GetValue(rand.Next(names.Length)).ToString();
+            }
+        }
+        /// <summary>
+        /// Gets a random first name based on the gender and a supplied Random object seed value
+        /// </summary>
+        /// <param name="gender">The Gender to use for generating</param>
+        /// <param name="seed">A seed for creating a Random object</param>
+        /// <returns></returns>
+        public static string RandomFirstName(Gender gender, int seed) {
+            return RandomFirstName(gender, new Random(seed));
+        }
+        /// <summary>
+        /// Gets a random first name based on the gender, using a new Random object
+        /// </summary>
+        /// <param name="gender">The Gender to use for generating</param>
+        /// <returns></returns>
+        public static string RandomFirstName(Gender gender) {
+            return RandomFirstName(gender, new Random());
         }
         /// <summary>
         /// Sets a random last name for the PID segment, used to de-identify the HL7 message.
@@ -145,5 +158,30 @@ namespace HL7Lib.Base
             }
             return returnValue;
         }
+
+        public static Gender GetGenderFromString(string gender) {
+            if (String.IsNullOrWhiteSpace(gender)) {
+                gender = gender.ToLower().TrimStart();
+
+                if (gender[0] == 'm') {
+                    return Gender.male;
+                }
+                else if (gender[0] == 'f') {
+                    return Gender.female;
+                }
+                else {
+                    return Gender.unknown;
+                }
+            }
+            else {
+                return Gender.unknown;
+            }
+        }
+    }
+
+    public enum Gender {
+        unknown,
+        male,
+        female
     }
 }

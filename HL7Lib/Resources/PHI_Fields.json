@@ -3,100 +3,98 @@
         "Label": "Last_Name",
         "Id": "PID-5.1",
         "Type": "name",
-        "Generator": null,
-        "GeneratorName": "Test_Generator1",
+        "GeneratorName": "RandomFirstName",
         "Static": "LAST"
     },
     {
         "Label": "First_Name",
         "Id": "PID-5.2",
         "Type": "name",
-        "Generator": null,
-        "GeneratorName": "Test_Generator2",
+        "GeneratorName": "RandomLastName",
         "Static": "FIRST"
     },
     {
         "Label": "Middle_Name",
         "Id": "PID-5.3",
         "Type": "name",
-        "Generator": null,
+        "GeneratorName": "RandomFirstName",
         "Static": "MIDDLE"
     },
     {
         "Label": "Street_Address",
         "Id": "PID-11.1",
         "Type": "address",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "STREET"
     },
     {
         "Label": "City",
         "Id": "PID-11.3",
         "Type": "address",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "CITY"
     },
     {
         "Label": "Zip_Code",
         "Id": "PID-11.5",
         "Type": "address",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "ZIP"
     },
     {
         "Label": "Patient_Account_Number",
         "Id": "PID-18.1",
         "Type": "id",
-        "Generator": null,
+        "GeneratorName": "Test_Generator2",
         "Static": "MRN"
     },
     {
         "Label": "MRN",
         "Id": "PID-3.1",
         "Type": "id",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "MRN"
     },
     {
         "Label": "SSN",
         "Id": "PID-19.1",
         "Type": "id",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "SSN"
     },
     {
         "Label": "MPI",
         "Id": "PID-2.1",
         "Type": "id",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "MPI"
     },
     {
         "Label": "DOB",
         "Id": "PID-7.1",
         "Type": "datetime",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "DOB"
     },
     {
         "Label": "Home_Phone",
         "Id": "PID-13.1",
         "Type": "phone",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "HOME_PHONE"
     },
     {
         "Label": "Work_Phone",
         "Id": "PID-14.1",
         "Type": "phone",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "WORK_PHONE"
     },
     {
         "Label": "Schedule_Start_Date",
         "Id": "OBR-27.4",
         "Type": "datetime",
-        "Generator": null,
+        "GeneratorName": "Test_Generator1",
         "Static": "SCHEDULE_START"
     }
 ]

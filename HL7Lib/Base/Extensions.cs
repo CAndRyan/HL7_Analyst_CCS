@@ -254,7 +254,7 @@ namespace HL7Lib.Base
             //    return null;
             //}
 
-            return m.GenerateFrom(logger, Configuration.LoadPHI());
+            return m.GenerateFrom(logger, Configuration.LoadPHI(m, logger));
         }
         /// <summary>
         /// Removes patient identifying information from message and replaces it with made up patient data, providing a default ILogWriter
@@ -481,6 +481,19 @@ namespace HL7Lib.Base
             returnStr = returnStr.Replace(String.Format("{0}R{0}", EscapeCharacter), "~");
             returnStr = returnStr.Replace(String.Format("{0}E{0}", EscapeCharacter), "\\");
             return returnStr;
+        }
+
+        public static Gender GetGender(this Message msg) {
+            List<Segment> segments = msg.Segments.Get("PID");
+            if (segments.Count == 1) {
+                Segment s = segments[0];
+                HL7Lib.Base.Component sex = s.GetByID("PID-8.1");
+
+                return Helper.GetGenderFromString(sex.Value);
+            }
+            else {
+                return Gender.unknown;
+            }
         }
     }
 }
