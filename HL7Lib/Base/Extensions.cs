@@ -272,6 +272,15 @@ namespace HL7Lib.Base
         /// <returns></returns>
         public static Message GenerateFrom(this Message m, ILogWriter logger, IEditManager editor = null) {
             m.Segments = m.Segments.Select(s => s.GenerateFrom(logger, editor)).ToList();
+
+            if (editor != null) {
+                editor.CompletePass();
+                if (editor.Repass) {
+                    m.Segments.Select(s => s.GenerateFrom(logger, editor)).ToList();
+                }
+                editor.Cleanup();
+            }
+
             return m;
         }
         /// <summary>

@@ -108,6 +108,26 @@
             Contract for an EditManager to follow
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.IEditManager.Repass">
+            <summary>
+            Flag specifying whether or not a repass is required
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.IEditManager.CompletePass">
+            <summary>
+            Perform additional work after a pass is complete
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.IEditManager.Replacements">
+            <summary>
+            Dictionary for replacements to be made in a repass
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.IEditManager.Cleanup">
+            <summary>
+            Clean any changes to the EditManager
+            </summary>
+        </member>
         <member name="M:HL7Lib.Base.IEditManager.Contains(System.String)">
             <summary>
             Check if the EditManager contains a config for this componentId
@@ -125,6 +145,21 @@
         <member name="T:HL7Lib.Base.EditManager">
             <summary>
             IEditManager to manage custom Component editing
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditManager.Repass">
+            <summary>
+            Flag specifying whether or not a repass is required
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditManager.PassNumber">
+            <summary>
+            Store the current pass - 1 is default
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.EditManager.Replacements">
+            <summary>
+            Dictionary for replacements to be made in a repass
             </summary>
         </member>
         <member name="F:HL7Lib.Base.EditManager.Items">
@@ -169,6 +204,23 @@
             <param name="item">a Component to be updated according to a ConfigItem for it</param>
             <returns></returns>
         </member>
+        <member name="M:HL7Lib.Base.EditManager.RepassEdit(HL7Lib.Base.Component)">
+            <summary>
+            Edits a component, determined by the ConfigItem for this component - as a repass
+            </summary>
+            <param name="item">a Component to be updated according to a ConfigItem for it</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.Cleanup">
+            <summary>
+            Clean any changes to the EditManager
+            </summary>
+        </member>
+        <member name="M:HL7Lib.Base.EditManager.CompletePass">
+            <summary>
+            Perform additional work after a pass is complete
+            </summary>
+        </member>
         <member name="T:HL7Lib.Base.ConfigItem">
             <summary>
             Config items to store config data for components
@@ -209,9 +261,19 @@
             Static replacement for this component (used if the Generator is null)
             </summary>
         </member>
+        <member name="P:HL7Lib.Base.ConfigItem.Repass">
+            <summary>
+            If true, a repass of the message will replace all instances of this item's original value (from all other components)
+            </summary>
+        </member>
         <member name="P:HL7Lib.Base.ConfigItem.PreReplace">
             <summary>
             Contains replacement patterns to perform after retrieving the ConfigItem's Message component but before using the ConfigItem
+            </summary>
+        </member>
+        <member name="P:HL7Lib.Base.ConfigItem.OldValue">
+            <summary>
+            The old value provided before generating it
             </summary>
         </member>
         <member name="M:HL7Lib.Base.ConfigItem.GetValue">
@@ -225,6 +287,25 @@
             Method to set the Generator plugin to use
             </summary>
             <param name="plugin">The plugin to use</param>
+        </member>
+        <member name="M:HL7Lib.Base.ConfigItem.Generate(HL7Lib.Plugin.IDeIdentifiable)">
+            <summary>
+            Method to generate a new value from this config's Generator
+            </summary>
+            <param name="item">An IdeIdentiable item to generate from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.ConfigItem.GetStatic(HL7Lib.Plugin.IDeIdentifiable)">
+            <summary>
+            Method to get the static value and set the old values
+            </summary>
+            <param name="item">An IdeIdentiable item to generate from</param>
+            <returns></returns>
+        </member>
+        <member name="M:HL7Lib.Base.ConfigItem.Cleanup">
+            <summary>
+            Cleanup any old values present with this config
+            </summary>
         </member>
         <member name="T:HL7Lib.Base.Replacement">
             <summary>

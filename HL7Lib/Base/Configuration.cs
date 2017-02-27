@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using HL7Lib.Plugin;
 
 namespace HL7Lib.Base {
     /// <summary>
@@ -41,6 +42,22 @@ namespace HL7Lib.Base {
     /// </summary>
     public interface IEditManager {
         /// <summary>
+        /// Flag specifying whether or not a repass is required
+        /// </summary>
+        bool Repass { get; }
+        /// <summary>
+        /// Perform additional work after a pass is complete
+        /// </summary>
+        void CompletePass();
+        /// <summary>
+        /// Dictionary for replacements to be made in a repass
+        /// </summary>
+        Dictionary<string, Tuple<IDeIdentifyPluginContext, IDeIdentifiable>> Replacements { get; }
+        /// <summary>
+        /// Clean any changes to the EditManager
+        /// </summary>
+        void Cleanup();
+        /// <summary>
         /// Check if the EditManager contains a config for this componentId
         /// </summary>
         /// <param name="componentId"></param>
@@ -57,6 +74,22 @@ namespace HL7Lib.Base {
     /// IEditManager to manage custom Component editing
     /// </summary>
     public class EditManager : IEditManager {
+        /// <summary>
+        /// Flag specifying whether or not a repass is required
+        /// </summary>
+        public bool Repass {
+            get {
+                return Replacements.Count > 0;
+            }
+        }
+        /// <summary>
+        /// Store the current pass - 1 is default
+        /// </summary>
+        public int PassNumber { get; private set; } = 1;
+        /// <summary>
+        /// Dictionary for replacements to be made in a repass
+        /// </summary>
+        public Dictionary<string, Tuple<IDeIdentifyPluginContext, IDeIdentifiable>> Replacements { get; private set; } = new Dictionary<string, Tuple<IDeIdentifyPluginContext, IDeIdentifiable>>();
         /// <summary>
         /// The internal dictionary for checking and retrieving necessary updates
         /// </summary>
@@ -110,24 +143,86 @@ namespace HL7Lib.Base {
         /// <param name="item">a Component to be updated according to a ConfigItem for it</param>
         /// <returns></returns>
         public Component Edit(Component item) {
-            if (Contains(item.ID)) {
-                ConfigItem config = Items[item.ID];
-                
-                if (config.Generator != null) {
-                    try {
-                        item.Value = config.Generator.Generate(item, config);
+            if (PassNumber == 1) {
+                if (Contains(item.ID)) {
+                    ConfigItem config = Items[item.ID];
+
+                    if (config.Repass) {
+                        Replacements.Add(item.Value, new Tuple<IDeIdentifyPluginContext, IDeIdentifiable>(config, item));
                     }
-                    catch (Exception ex) {
-                        Logger.LogException(ex);
+
+                    if (config.Generator != null) {
+                        try {
+                            item.Value = config.Generate(item);
+                        }
+                        catch (Exception ex) {
+                            Logger.LogException(ex);
+                        }
+                    }
+                    else if (config.Static != null) {
+                        item.Value = config.GetStatic(item);
                     }
                 }
-                else if (config.Static != null) {
-                    item.Value = config.Static;
-                }
-                
+
+                return item;
             }
-            
+            else {      // repass
+                return RepassEdit(item);
+            }
+        }
+        /// <summary>
+        /// Edits a component, determined by the ConfigItem for this component - as a repass
+        /// </summary>
+        /// <param name="item">a Component to be updated according to a ConfigItem for it</param>
+        /// <returns></returns>
+        public Component RepassEdit(Component item) {
+            if (!String.IsNullOrEmpty(item.Value)) {
+                for (int i = 0; i < Replacements.Keys.Count; i++) {
+                    string key = Replacements.Keys.ElementAt(i);
+
+                    if (item.Value.Contains(key)) {
+                        int startIndex = item.Value.IndexOf(key);
+                        string start = item.Value.Substring(0, startIndex);
+                        string end = item.Value.Substring((startIndex + key.Length));
+                        string newVal = String.Empty;
+
+                        ConfigItem config = (ConfigItem)Replacements[key].Item1;
+                        if (config.Generator != null) {
+                            try {
+                                newVal = config.Generate(Replacements[key].Item2);
+                            }
+                            catch (Exception ex) {
+                                Logger.LogException(ex);
+                            }
+                        }
+                        else if (config.Static != null) {
+                            newVal = config.Static;
+                        }
+
+                        item.Value = String.Format("{0}{1}{2}", start, newVal, end);
+                        i = Replacements.Keys.Count;
+                    }
+                }
+            }
+
             return item;
+        }
+        /// <summary>
+        /// Clean any changes to the EditManager
+        /// </summary>
+        public void Cleanup() {
+            Replacements = new Dictionary<string, Tuple<IDeIdentifyPluginContext, IDeIdentifiable>>();
+            PassNumber = 1;
+
+            foreach (string key in Items.Keys) {
+                Items[key].Cleanup();
+            }
+        }
+        /// <summary>
+        /// Perform additional work after a pass is complete
+        /// </summary>
+        public void CompletePass() {
+            PassNumber++;
         }
     }
     /// <summary>
@@ -163,9 +258,17 @@ namespace HL7Lib.Base {
         /// </summary>
         public string Static { get; set; }
         /// <summary>
+        /// If true, a repass of the message will replace all instances of this item's original value (from all other components)
+        /// </summary>
+        public bool Repass { get; set; } = false;
+        /// <summary>
         /// Contains replacement patterns to perform after retrieving the ConfigItem's Message component but before using the ConfigItem
         /// </summary>
         public IEnumerable<Replacement> PreReplace { get; set; } = new List<Replacement>();
+        /// <summary>
+        /// The old value provided before generating it
+        /// </summary>
+        public string OldValue { get; private set; } = null;
         /// <summary>
         /// Get the modified value for the related component
         /// </summary>
@@ -187,6 +290,30 @@ namespace HL7Lib.Base {
         /// <param name="plugin">The plugin to use</param>
         public void SetGenerator(HL7Lib.Plugin.IDeIdentifyPlugin plugin) {
             Generator = plugin;
+        }
+        /// <summary>
+        /// Method to generate a new value from this config's Generator
+        /// </summary>
+        /// <param name="item">An IdeIdentiable item to generate from</param>
+        /// <returns></returns>
+        public string Generate(HL7Lib.Plugin.IDeIdentifiable item) {
+            OldValue = item.Value;
+            return Generator.Generate(item, this);
+        }
+        /// <summary>
+        /// Method to get the static value and set the old values
+        /// </summary>
+        /// <param name="item">An IdeIdentiable item to generate from</param>
+        /// <returns></returns>
+        public string GetStatic(HL7Lib.Plugin.IDeIdentifiable item) {
+            OldValue = item.Value;
+            return Static;
+        }
+        /// <summary>
+        /// Cleanup any old values present with this config
+        /// </summary>
+        public void Cleanup() {
+            OldValue = null;
         }
     }
     /// <summary>

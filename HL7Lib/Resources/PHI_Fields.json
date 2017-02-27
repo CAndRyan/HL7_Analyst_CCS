@@ -4,7 +4,8 @@
         "Id": "PID-5.1",
         "Type": "name",
         "GeneratorName": "RandomFirstName",
-        "Static": "LAST"
+        "Static": "LAST",
+        "Repass": true
     },
     {
         "Label": "First_Name",
